@@ -1,4 +1,4 @@
-package com.keebraa.javaa.cleancode.core;
+package com.keebraa.java.cleancode.core;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

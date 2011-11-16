@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: core
-Bundle-SymbolicName: com.keebraa.javaa.cleancode.core; singleton:=true
+Bundle-SymbolicName: com.keebraa.java.cleancode.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.keebraa.javaa.cleancode.core.Activator
 Bundle-Vendor: keebraa

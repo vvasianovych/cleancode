@@ -1,4 +1,4 @@
-package com.keebraa.javaa.cleancode.core.actions;
+package com.keebraa.java.cleancode.core.actions;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
