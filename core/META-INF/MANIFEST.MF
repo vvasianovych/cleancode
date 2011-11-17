@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: core
 Bundle-SymbolicName: com.keebraa.java.cleancode.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: com.keebraa.javaa.cleancode.core.Activator
+Bundle-Activator: com.keebraa.java.cleancode.core.Activator
 Bundle-Vendor: keebraa
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
