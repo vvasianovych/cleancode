@@ -1,0 +1,105 @@
+    zingo 146 16cd70529433 Tue Feb 05 21:17:52 2008 +0100: /*******************************************************************************
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  * Copyright (c) 2006-2008 VecTrace (Zingo Andersen) and others.
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  * All rights reserved. This program and the accompanying materials
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  * are made available under the terms of the Eclipse Public License v1.0
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  * which accompanies this distribution, and is available at
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  * http://www.eclipse.org/legal/epl-v10.html
+    zingo 146 16cd70529433 Tue Feb 05 21:17:52 2008 +0100:  *
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  * Contributors:
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  *     VecTrace (Zingo Andersen) - implementation
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  *     Software Balm Consulting Inc (Peter Hunnisett <peter_hge at softwarebalm dot com>) - some updates
+    zingo 151 893d61d581c6 Thu Mar 27 22:47:06 2008 +0100:  *     StefanC                   - some updates
+    zingo 146 16cd70529433 Tue Feb 05 21:17:52 2008 +0100:  *******************************************************************************/
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: package com.vectrace.MercurialEclipse.team;
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 
+jerome+hg 204 c5395616db77 Sun Mar 23 20:15:59 2008 +0100: import org.eclipse.core.resources.IResource;
+    Peter  64 894d3a9c2e02 Thu Nov 16 22:53:26 2006 -0600: import org.eclipse.core.resources.team.IMoveDeleteHook;
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: import org.eclipse.core.runtime.CoreException;
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: import org.eclipse.team.core.RepositoryProvider;
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200: import org.eclipse.team.core.history.IFileHistoryProvider;
+    zingo 119 e479e7717c86 Sat Sep 08 23:32:36 2007 +0200: 
+    zingo 120 19ad87ea98db Sun Sep 09 13:09:40 2007 +0200: import com.vectrace.MercurialEclipse.history.MercurialHistoryProvider;
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: /**
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200:  * @author zingo
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200:  *
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200:  */
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: public class MercurialTeamProvider extends RepositoryProvider 
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: {
+    Peter  64 894d3a9c2e02 Thu Nov 16 22:53:26 2006 -0600: 
+     stch 135 35121497ff05 Tue Nov 20 12:19:40 2007 +0100:    public static final String ID = "com.vectrace.MercurialEclipse.team.MercurialTeamProvider";
+    zingo 120 19ad87ea98db Sun Sep 09 13:09:40 2007 +0200:   MercurialHistoryProvider FileHistoryProvider; 
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	/**
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	 * 
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	 */
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	public MercurialTeamProvider() 
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	{
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 		super();
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:     FileHistoryProvider = null; //Delay creation until needed new MercurialFileHistoryProvider();
+    zingo  71 864aa7a8ce1a Fri Dec 22 23:46:50 2006 +0100: //		System.out.println("MercurialTeamProvider.MercurialTeamProvider()");
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	}
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	/* (non-Javadoc)
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	 * @see org.eclipse.team.core.RepositoryProvider#configureProject()
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	 */
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	//@Override
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100: 	@Override
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100:     public void configureProject() throws CoreException 
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	{
+jerome+hg 204 c5395616db77 Sun Mar 23 20:15:59 2008 +0100: 		getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
+jerome+hg 204 c5395616db77 Sun Mar 23 20:15:59 2008 +0100: 		getProject().getFolder(".hg").setTeamPrivateMember(true);
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	}
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	/* (non-Javadoc)
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	 * @see org.eclipse.core.resources.IProjectNature#deconfigure()
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	 */
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	public void deconfigure() throws CoreException 
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	{
+    zingo  15 02a39822c7be Fri May 19 23:04:24 2006 +0200: //		System.out.println("MercurialTeamProvider.deconfigure()");
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	}
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	/* (non-Javadoc)
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	 * @see org.eclipse.team.core.RepositoryProvider#getID()
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	 */
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	//@Override
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100: 	@Override
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100:     public String getID() 
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	{
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 		String ID;
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 	    ID=getClass().getName();
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: //		System.out.println("MercurialTeamProvider.getID() ID="+ID+" RepositoryPath=" + getRepositoryPath());
+    zingo   6 30f3620e3a2a Tue Feb 07 23:57:53 2006 +0200: 		return ID;
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 	}
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: 
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100:   @Override
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100: public IMoveDeleteHook getMoveDeleteHook()
+    Peter  64 894d3a9c2e02 Thu Nov 16 22:53:26 2006 -0600:   {
+    zingo  71 864aa7a8ce1a Fri Dec 22 23:46:50 2006 +0100: //    System.out.println("MercurialTeamProvider.getMoveDeleteHook()");
+    Peter  64 894d3a9c2e02 Thu Nov 16 22:53:26 2006 -0600:     return new HgMoveDeleteHook();
+    Peter  64 894d3a9c2e02 Thu Nov 16 22:53:26 2006 -0600:   }
+    zingo  79 3590e08abad7 Mon Jan 01 22:43:34 2007 +0100: 
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:   
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:   
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:   /* (non-Javadoc)
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:    * @see org.eclipse.team.core.RepositoryProvider#getFileHistoryProvider()
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:    */
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100:   @Override
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100: public IFileHistoryProvider getFileHistoryProvider()
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:   {
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:     if( FileHistoryProvider == null)
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:     {
+    zingo 120 19ad87ea98db Sun Sep 09 13:09:40 2007 +0200:       FileHistoryProvider = new MercurialHistoryProvider();
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:     }
+    zingo 119 e479e7717c86 Sat Sep 08 23:32:36 2007 +0200: //    System.out.println("getFileHistoryProvider()");
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:     return FileHistoryProvider;
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200:   }
+    zingo 103 3c5806534308 Sun Jul 22 21:50:14 2007 +0200: 
+    zingo  79 3590e08abad7 Mon Jan 01 22:43:34 2007 +0100:   /* (non-Javadoc)
+    zingo  79 3590e08abad7 Mon Jan 01 22:43:34 2007 +0100:    * @see org.eclipse.team.core.RepositoryProvider#canHandleLinkedResources()
+    zingo  79 3590e08abad7 Mon Jan 01 22:43:34 2007 +0100:    */
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100:   @Override
+  stefanc 221 41a8f5926910 Sun Mar 30 01:06:38 2008 +0100: public boolean canHandleLinkedResources()
+    zingo  79 3590e08abad7 Mon Jan 01 22:43:34 2007 +0100:   {
+    zingo  79 3590e08abad7 Mon Jan 01 22:43:34 2007 +0100:     return true;
+    zingo  79 3590e08abad7 Mon Jan 01 22:43:34 2007 +0100:   }
+    zingo   0 5ff6dbe5d3f8 Wed Nov 23 21:36:48 2005 +0200: }

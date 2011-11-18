@@ -1,53 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<prerequisites>
-		<maven>3.0</maven>
-	</prerequisites>
-
-	<repositories>
-		<repository>
-			<id>ganymede</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/ganymede</url>
-		</repository>
-		<repository>
-			<id>helios</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/helios</url>
-		</repository>
-		<repository>
-			<id>indigo</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/indigo</url>
-		</repository>
-	</repositories>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.keebraa.java.cleancode</groupId>
-	<artifactId>cleancode</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<modules>
-		<module>core</module>
-		<module>core-tests</module>
-	</modules>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.sonatype.tycho</groupId>
-				<artifactId>tycho-maven-plugin</artifactId>
-				<version>0.11.1</version>
-				<extensions>true</extensions>
-			</plugin>
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>target-platform-configuration</artifactId>
-				<version>0.13.0</version>
-				<configuration>
-					<pomDependencies>consider</pomDependencies>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.keebraa.java.cleancode</groupId>
+  <artifactId>cleancode</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>core</module>
+    <module>core-tests</module>
+    <module>mercurialEclipse</module>
+  </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>0.11.1</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
