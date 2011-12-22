@@ -18,11 +18,11 @@
       </actionSet>
    </extension>
    <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            allPopups="false"
-            locationURI="menu:team.main">
-      </menuContribution>
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="popup:team.main?after=additions"
+            targetID="com.keebraa.java.cleancode.core.HelloTeamAction">
+      </viewerContribution>
    </extension>
 
 </plugin>
