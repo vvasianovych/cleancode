@@ -18,7 +18,7 @@
          <action
                label="&amp;Sample Action"
                icon="icons/sample.gif"
-               class="com.keebraa.javaa.cleancode.core.actions.SampleAction"
+               class="com.keebraa.java.cleancode.core.actions.SampleAction"
                tooltip="Hello, Eclipse world"
                menubarPath="sampleMenu/sampleGroup"
                toolbarPath="sampleGroup"
