@@ -15,16 +15,14 @@
                   name="sampleGroup">
             </separator>
          </menu>
-         <action
-               label="&amp;Sample Action"
-               icon="icons/sample.gif"
-               class="com.keebraa.javaa.cleancode.core.actions.SampleAction"
-               tooltip="Hello, Eclipse world"
-               menubarPath="sampleMenu/sampleGroup"
-               toolbarPath="sampleGroup"
-               id="com.keebraa.javaa.cleancode.core.actions.SampleAction">
-         </action>
       </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="popup:team.main?after=additions"
+            targetID="com.keebraa.java.cleancode.core.HelloTeamAction">
+      </viewerContribution>
    </extension>
 
 </plugin>

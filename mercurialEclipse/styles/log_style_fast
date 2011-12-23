@@ -1,0 +1,4 @@
+changeset = log_style_fast.tmpl
+start_files = ''
+file = '\n<f v="{file|escape}"/>'
+end_files = ''
