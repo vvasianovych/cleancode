@@ -7,7 +7,7 @@ Bundle-Activator: com.keebraa.java.cleancode.core.Activator
 Bundle-Vendor: keebraa
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.core.resources;bundle-version="3.7.100"
+ org.eclipse.core.resources
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Export-Package: com.keebraa.java.cleancode.core

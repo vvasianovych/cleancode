@@ -1,54 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.keebraa.java.cleancode</groupId>
-  <artifactId>cleancode</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  
-  <profiles>
-        <profile>
-            <id>tycho</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>indigo</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/releases/indigo</url>
-                </repository>                
-            </repositories>
-            <properties>
-                <downloadSources>true</downloadSources>
-                <downloadJavadocs>true</downloadJavadocs>              
-                <tycho-version>0.11.1</tycho-version>
-            </properties>
-        </profile>
-    </profiles>   
-    
-  <modules>
-    <module>core</module>
-    <module>core-tests</module>
-   <module>mercurialEclipse</module>
-  </modules>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.sonatype.tycho</groupId>
-        <artifactId>tycho-maven-plugin</artifactId>
-        <version>0.11.1</version>
-        <extensions>true</extensions>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.tycho</groupId>
-        <artifactId>target-platform-configuration</artifactId>
-        <version>0.11.1</version>
-        <configuration>
-          <resolver>p2</resolver>
-        </configuration>
-      </plugin>      
-    </plugins>
-  </build>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.keebraa.java.cleancode</groupId>
+	<artifactId>cleancode</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<profiles>
+		<profile>
+			<id>tycho</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>indigo</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/releases/indigo/</url>
+<!-- 					<releases> -->
+<!-- 						<enabled>false</enabled> -->
+<!-- 					</releases> -->
+<!-- 					<snapshots> -->
+<!-- 						<enabled>true</enabled> -->
+<!-- 					</snapshots> -->
+				</repository>
+			</repositories>
+			<properties>
+				<downloadSources>true</downloadSources>
+				<downloadJavadocs>true</downloadJavadocs>
+				<tycho-version>0.11.1</tycho-version>
+			</properties>
+		</profile>
+	</profiles>
+
+	<modules>
+		<module>core</module>
+		<module>core-tests</module>
+<!-- 		<module>mercurialEclipse</module> -->
+	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>0.11.1</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>0.11.1</version>
+				<configuration>
+					<resolver>p2</resolver>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
