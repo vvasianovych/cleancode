@@ -31,7 +31,7 @@
   <modules>
     <module>core</module>
     <module>core-tests</module>
-<!--    <module>mercurialEclipse</module> -->
+   <module>mercurialEclipse</module>
   </modules>
   <build>
     <plugins>

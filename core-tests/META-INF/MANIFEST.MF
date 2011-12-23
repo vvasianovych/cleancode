@@ -7,6 +7,7 @@ Bundle-Activator: com.keebraa.java.cleancode.core.tests.Activator
 Bundle-Vendor: keebraa
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.junit
+ org.junit,
+ org.eclipse.core.resources;bundle-version="3.7.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
