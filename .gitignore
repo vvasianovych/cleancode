@@ -2,3 +2,7 @@
 **/*.class
 core/target
 core-tests/target
+**/.project
+**/.classpath
+**/.settings
+.settings
