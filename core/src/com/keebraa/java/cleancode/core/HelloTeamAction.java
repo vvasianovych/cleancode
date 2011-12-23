@@ -7,7 +7,6 @@ import org.eclipse.ui.IActionDelegate;
 
 public class HelloTeamAction implements IActionDelegate
 {
-
     @Override
     public void run(IAction action)
     {

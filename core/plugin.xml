@@ -22,7 +22,25 @@
       <viewerContribution
             id="popup:team.main?after=additions"
             targetID="com.keebraa.java.cleancode.core.HelloTeamAction">
+         <action
+               class="com.keebraa.java.cleancode.core.actions.SampleAction"
+               id="com.keebraa.java.cleancode.core.action1"
+               label="fuck up">
+         </action>
       </viewerContribution>
+      <objectContribution
+            adaptable="false"
+            id="com.keebraa.java.cleancode.core.objectContribution1"
+            objectClass="org.eclipse.core.resources.IResource">
+         <action
+               class="com.keebraa.java.cleancode.core.Action1"
+               enablesFor="*"
+               id="com.keebraa.java.cleancode.core.action1"
+               label="hello from keebraa"
+               menubarPath="team.main/group1"
+               style="radio">
+         </action>
+      </objectContribution>
    </extension>
 
 </plugin>
