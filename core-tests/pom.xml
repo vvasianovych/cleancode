@@ -7,7 +7,7 @@
     <groupId>com.keebraa.java.cleancode</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.keebraa.java.cleancode</groupId>
+  <groupId>com.keebraa.java.cleancode.coretests</groupId>
   <artifactId>com.keebraa.java.cleancode.core.tests</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
