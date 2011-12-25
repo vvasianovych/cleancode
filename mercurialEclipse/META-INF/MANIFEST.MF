@@ -66,3 +66,4 @@ Export-Package: com.vectrace.MercurialEclipse,
  com.vectrace.MercurialEclipse.wizards,
  com.vectrace.MercurialEclipse.wizards.mq
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
