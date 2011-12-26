@@ -1,0 +1,136 @@
+#####################################
+# How to create native hg fragments #
+# ----------------------------------#
+# Author: Andrei Loskutov           #
+# Date: 03.12.2009                  #
+##########################################################################################
+# Please note, that the instructions below are not perfect and reflecting my personal
+# experience with building the native fragment for Eclipse. I'm pretty sure there is more
+# elegant way to do it, but right now it simply works...
+##########################################################################################
+
+Below are the steps I run to create the native hg fragment for Windows. I've tested this on
+Windows XP and it works. Hovewer, I can imagine, that this may NOT work for Vista or
+Vista SP2 (Windows 7). Similar way is to go for all other operating systems.
+
+1) Create a new "Plugin Fragment" project with Eclipse wizard. Please use for the fragment
+project name the plugin name plus the target platform, like: "hgeclipseFragment_win32"
+
+2) Please give the fragment a meaningful, full-qualified bundle id (also derived from the
+target platform), like: "com.intland.hgbinary.win32"
+
+3) Create the "os/name/architecture" folder structure in the fragment project. For Windows,
+we simply use "os/win32" (there is no need to have "os/win32/x86" or "os/win32/x86_64"),
+but for Linux it would be "os/linux/x86" for 32 bit and "os/linux/x86_64" for 64 bit binaries.
+
+4) Add the "os" folder to the build.properties:
+-------------
+output.. = bin/
+bin.includes = META-INF/,\
+			.,\
+			os/
+-------------
+
+5) Get the binaries from http://mercurial.selenic.com/wiki/Download?action=show&redirect=BinaryPackages
+
+6) Run the installer and let it install the hg "as usual"
+
+7) Go to the installation directory and copy everything EXCEPT the "locale" directory to the
+"hgeclipseFragment_win32/os/win32" directory. The "locale" contains translated hg messages,
+which are bad for Eclipse plugin, because it relies sometimes on EXACT hg output messages.
+On a german PC it would simply sometimes not work... Default *hardcoded* hg language
+used by plugin is english and does not require anything from "locale".
+
+8) (For Hg 1.7.3 and above) Open hgeclipseFragment_win32/os/win32/hgrc.d/Paths.rc. 
+Repace the line, "cacerts=...\cacert.pem", with
+"cacerts=%HGE_RUNDIR%\hgrc.d\cacert.pem" (without quote)
+This line sets the path to CA root certificates. MercurialEclipse will set environment variable
+%HGE_RUNDIR% to the hg.exe install path at runtime.
+
+9) Also delete unins000.dat file, which is created by the installer and which contains
+local PC data required to uninstall hg.
+
+10) Check the META-INF/MANIFEST.MF file in the fragment project. The file should look like:
+-------------
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: com.intland.hgbinary.win32
+Bundle-SymbolicName: com.intland.hgbinary.win32
+Bundle-Version: 1.3.1
+Bundle-Vendor: Intland Software
+Fragment-Host: com.vectrace.MercurialEclipse;bundle-version="1.5.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Eclipse-PlatformFilter: (osgi.os=win32)
+-------------
+Please notice 3 important things:
+- "Bundle-Version: 1.3.1" - must match hg version
+- "Fragment-Host: ... " - must match hgeclipse plugin version
+- "Eclipse-PlatformFilter: (osgi.os=win32)" -  it MUST contain right platform filter
+
+11) Create a "feature" project with Eclipse wizard. This is required for the update site.
+As name, use something like "hgeclipseFragmentFeature_win32". Feature ID must be unique,
+so it can be something like "hgeclipse_win32".
+
+12) Check the feature.xml in the feature project. The file should look like:
+-------------
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+	id="hgeclipse_win32"
+	label="Mercurial executable (recommended)"
+	version="1.3.1"
+	provider-name="Intland Software"
+	os="win32">
+<description url="http://www.example.com/description">
+	Hg (Mercurial) binaries for Windows operating system
+</description>
+<copyright url="http://www.intland.com/">
+	Intland Software
+</copyright>
+<license url="http://www.opensource.org/licenses/gpl-2.0.php">
+	GPL
+</license>
+<plugin
+		id="com.intland.hgbinary.win32"
+		os="win32"
+		download-size="4000"
+		install-size="4000"
+		version="1.3.1"
+		fragment="true"
+		unpack="true"/>
+</feature>
+-------------
+Please notice 4 important things:
+- feature and plugin versions should match the fragment version (1.3.1)
+- "feature os" should match the target platform ("win32")
+- plugin MUST have "unpack="true"" attribute set. Otherwise Eclipse would package the
+	hg binaries in a jar and deploy it so to the target Eclipse platform. In this case
+	hg will not be able to find all required files etc. So we MUST set unpack="true".
+
+13) Now, in the update site of your choice, add something like this:
+
+<feature url="features/hgeclipse_win32_1.3.1.jar" id="hgeclipse_win32" version="1.3.1" os="win32">
+	<category name="HgEclipse"/>
+</feature>
+
+An example update site.xml file can look like:
+-------------
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+<feature url="features/hgeclipse_1.5.0.200911291812.jar" id="hgeclipse" version="1.5.0.200911291812">
+	<category name="HgEclipse"/>
+</feature>
+<feature url="features/hgeclipse_win32_1.3.1.jar" id="hgeclipse_win32" version="1.3.1" os="win32">
+	<category name="HgEclipse"/>
+</feature>
+<category-def name="HgEclipse" label="HgEclipse"/>
+</site>
+-------------
+Again, important to consider is:
+- feature must have a platform filter, like os="win32". Otherwise Linux users would try to
+	install the Windows version, which will be a little bit disappointing for them at the end.
+
+14) So now we are ready to build: open site.xml with Eclipse default site editor, click
+on "hgeclipse_win32" entry and then on "Build" button. This would trigger the generation
+of the fragment and feature jars.
+
+Put jars and site.xml to the web server of your choice and you are done.
