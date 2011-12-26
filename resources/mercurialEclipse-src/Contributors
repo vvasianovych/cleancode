@@ -1,0 +1,105 @@
+Mercurial Eclipse Plugin
+
+Here is a list of people that has been contributing to this project
+if you supply a patch please dont forget to patch this file also add
+your name, a few lines about yourself and if you want an email.
+
+
+Contributors: (In order of appearance)
+
+Zingo Andersen - Creator of this nice piece of software.
+	I'm an old Amiga fart, that likes hacking around.
+	I have two kids and a wife, both take there share of my private Life so
+	lately there has not been so much hacking after I come home from my day
+	job as a Realtime Consultant from Enea.
+	I live in Sweden in the town called Lund.
+	More info about me might be found at http://www.zingo.org
+
+Gunnar Ahlberg - I'm a developer. Other than that, I'm generally
+	outdoors playing in the woods and archipelago of sunny Stockholm,
+	Sweden. Cheers!
+	Zingo's Comment: Gunnar is the first external contributor, he started the work on
+	getting the plugin configurable, thanks for the help.
+
+Peter Hunnisett - Peter Hunnisett is a bipedal mammal hailing from
+	Canada who's wondering if you have to come from a northern country
+	to contribute to this software.
+	Zingo's Comment: Peter insted of whising for feature just plain wrote them :)
+	He is responsible for  the cloning,rename/move and selectable commit handling.
+	He as also refacorated the messy code that I have wrote.
+
+Indra Talip
+	Zingo's Comment: Indra added a browse button to the clone wizard, this was very nice.
+
+Sebastian Herbszt - Some code changes and some testing on Windows
+	Zingo's Comment: Sebastian started out with a small changelog patch but have since
+	then help with bug tracking and other patches
+
+Stefan Chyssler
+	I currently work as a python developer in Stockholm, Sweden.
+	Previously I worked as an eclipse plugin developer developer at an company in Sweden. I have a genuine interest
+	in eclipse plugin development and believe a full fledged mercurial team support will help make
+	eclipse stay on top.
+	Zingo's Comment: StefanC started out to helped me with not selecting ignored
+	files in Commit dialog and making it resizable, after that he has made numerous contributions.
+
+StefanG
+	Zingo's Comment: StefanG help me with better log output thanx for pointing this out.
+
+Stefan Groschupf -
+	Zingo's Comment: Stefan Groschupf help with logError
+	(He could be the same person as StefanG But Im not sure)
+
+Charles O'Farrell -
+	Zingo's Comment: Fixed decoration on Project outside of workspace. Then continued with
+	a lot of changes.
+
+Jerome Negre -
+	Zingo's Comment: Jerome started to fix a few issues and started add missing features like
+	.hgignore support, after that he has made numerous contributions.
+
+Bastian Doetsch -
+	I'm interested in Mercurial and MercurialEclipse so I started contributing a bit while learning.
+	I try to get the synchronize infrastructure to work.
+	Zingos Comment: Well Bastian seem to learn fast :) the Time from the first small patch to large
+	contribution was quite small. Bastian is now driving the project forward.
+
+Brian Wallis:
+	Zingos Comments: Brian helped with some bugfixing an a few features.
+
+Georg Koltermann:
+	Zingos Comment: Georg was one of the first users leaving feedback and even helped fixing some bugs.
+
+Steeven Lee:
+	Steeven introduced himself by contributing export functionality for changes. This, together with a revamped
+	import wizard is nicely integrated in Eclipse and we look forward to further contributions!
+
+Ismael Juma -
+	I'm interested in moving from SVN to Mercurial at work and good Eclipse support is important.
+	While testing the plugin I ran into some issues and decided to contribute.
+
+Andrei Loskutov:
+	I've started to use hg because I was shocked that SVN can't propagate changes to renamed/moved files.
+	Because I'm Eclipse guy, I've started to use MercurialEclipse. To make my life
+	easier I've started to fix the issues I found in the plugin.
+	More info about me might be found at http://andrei.gmxhome.de
+
+Adam Berkes & Zsolt Koppany - Intland Software - http://www.intland.com
+	Because of well known limitations of Subversion we moved from Subversion to Mercurial.
+
+	We at Intland Software are very happy with Mercurial and our goal is to enhance and extend this
+	free and open source plugin for enterprise environment.
+
+Philip Graf:
+	Implemented proxy support for remote operations.
+	
+Bjoern Stachmann:
+	Actually i'm more of a git type. But then i'm an eclipse type too.
+	Have you tried EGit? I did. Then i stumbled upon upon this nice
+	piece of plugin here. Trying it i found that using mercurial isn't 
+	that bad ;-) But it did miss some features so i started to contribute. 
+
+John Peberdy:
+	Improved the synchronize view and conflicted rebase and other usability improvements.
+	 
+	
