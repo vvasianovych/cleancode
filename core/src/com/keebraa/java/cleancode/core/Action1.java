@@ -3,14 +3,18 @@ package com.keebraa.java.cleancode.core;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IStorage;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 
+import com.vectrace.MercurialEclipse.commands.HgLogClient;
 import com.vectrace.MercurialEclipse.history.MercurialHistory;
 import com.vectrace.MercurialEclipse.history.MercurialRevision;
+import com.vectrace.MercurialEclipse.model.FileFromChangeSet;
+import com.vectrace.MercurialEclipse.team.MercurialTeamProvider;
 
 public class Action1 implements IActionDelegate
 {
@@ -28,9 +32,16 @@ public class Action1 implements IActionDelegate
 	{
 	    history.refresh(null, Integer.MAX_VALUE);
 	    List<MercurialRevision> revisions = history.getRevisions();
+	    
 	    for(MercurialRevision revision : revisions)
 	    {
-		System.out.println(revision.getComment());
+		System.out.println("=========revision : "+revision.getChangeSet().getChangeset()+"============");
+		System.out.println(HgLogClient.getLogWithBranchInfo(revision, history, null).getChangesetFiles().length);
+		for(FileFromChangeSet file : HgLogClient.getLogWithBranchInfo(revision, history, null).getChangesetFiles())
+		{
+		    System.out.println(file.getFile().getName());
+		}
+		System.out.println("===============================================================");
 	    }
 	}
 	catch (CoreException e)
