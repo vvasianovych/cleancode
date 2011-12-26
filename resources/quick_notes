@@ -1,0 +1,1 @@
+- I use -Dtycho.targetPlatform variable for resolving target platform. Note that I use mercurialEclipse (see in this dir) as well.  
