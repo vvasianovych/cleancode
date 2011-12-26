@@ -1,0 +1,41 @@
+public class Action1 implements IActionDelegate
+{
+    private IProject project;
+    
+    public Action1()
+    {
+    }
+
+    @Override
+    public void run(IAction action)
+    {
+	MercurialHistory history = new MercurialHistory(project);
+	try
+	{
+	    history.refresh(null, Integer.MAX_VALUE);
+	    List<MercurialRevision> revisions = history.getRevisions();
+	    
+	    for(MercurialRevision revision : revisions)
+	    {
+		System.out.println("=========revision : "+revision.getChangeSet().getChangeset()+"============");
+		System.out.println(HgLogClient.getLogWithBranchInfo(revision, history, null).getChangesetFiles().length);
+		for(FileFromChangeSet file : HgLogClient.getLogWithBranchInfo(revision, history, null).getChangesetFiles())
+		{
+		    System.out.println(file.getFile().getName());
+		}
+		System.out.println("===============================================================");
+	    }
+	}
+	catch (CoreException e)
+	{
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+    }
+
+    @Override
+    public void selectionChanged(IAction action, ISelection selection)
+    {
+        IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+        project = (IProject) structuredSelection.getFirstElement();
+    }
