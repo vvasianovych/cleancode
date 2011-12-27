@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="com.keebraa.java.cleancode.core.model" name="cleancode.core.model" schema="schema/com.keebraa.java.cleancode.core.model.exsd"/>
     <extension point="org.eclipse.core.expressions.definitions">
         <definition id="com.keebraa.cleancode.core.underControlDefinition">
 			<test

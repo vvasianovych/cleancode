@@ -8,7 +8,7 @@ public class ReviewCreationWizard extends Wizard
     @Override
     public boolean performFinish()
     {
-        return true;
+        return false;
     }
 
     @Override
