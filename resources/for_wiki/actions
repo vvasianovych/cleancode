@@ -1,0 +1,24 @@
+# menu Actions
+Really fun days I spend with eclipse actions. 
+The task was: 
+###### I wanted to add menu item "create CodeReview" in the "Team" menu item. (Right click on the Project > Team > create CodeReview). But, as you know, in this menu item you should get more items, when you share your project. ("Team > share Project"). This is the state of your project, when it is under the control system (Git, svn, mercurial, etc). First of all I faced with the problem - "I need my menu item only when my project is under control", but I had not idea, how can I do it.  
+First of all - there are two different approaches for handling menu items - commands and actions. 
+In my case, I chose actions.
+The picture is as follow: you click right button - choose "Team" menu. If your project is not under control - you should see only "share project" and "Apply patch". If your project is under control - you want to see all menus from your current VCS plugin (eGit (jGit), mercurialEclipse, subcliple etc.) and your menu item. 
+You have some tools for it: 
+
+1. extension point "org.eclipse.core.expressions.definitions"
+It provides you instruments to create some conditions about current selection, type of selection, count, etc. Also, it can checks some properties for your resource via org.eclipse.core.resources.ResourcePropertyTester (see plugin.xml for org.eclipse.core.resources plugin, and JavaDoc for ResourcePropertyTester). For example, next code should check, if your current selection (IResource) is under control:
+
+ <definition id="com.example.def">
+   <iterate ifEmpty="false" operator="or">
+     <adapt type="org.eclipse.core.resources.IResource">
+       <test
+           property="org.eclipse.core.resources.projectPersistentProperty"
+           args="org.eclipse.team.core.repository"> 
+       </test>
+     </adapt>
+  </iterate>
+ </definition>
+
+As you can see, here your definition checks if the property "projectPersistentProperty" filled for your IResource object. (For details about IResource properties see JavaDoc for it). If your project shared - it will be filled. 

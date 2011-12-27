@@ -1,4 +1,4 @@
-package com.keebraa.java.cleancode.core;
+package com.keebraa.java.cleancode.core.actions;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.IAction;
@@ -11,11 +11,11 @@ import org.eclipse.ui.PlatformUI;
 
 import com.keebraa.java.cleancode.core.reviewcreation.wizard.ReviewCreationWizard;
 
-public class Action1 implements IActionDelegate
+public class CreateReviewAction implements IActionDelegate
 {
     private IProject project;
     
-    public Action1()
+    public CreateReviewAction()
     {
     }
 
