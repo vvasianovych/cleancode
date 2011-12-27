@@ -15,8 +15,6 @@ public class SelectCommitsWizardPage extends WizardPage
 
     private Table commitTable;
     
-    private Composite container;
-    
     protected SelectCommitsWizardPage(String pageName)
     {
         super(pageName);
@@ -25,9 +23,7 @@ public class SelectCommitsWizardPage extends WizardPage
     @Override
     public void createControl(Composite parent)
     {
-        container = new Composite(parent, SWT.NULL);
-        GridLayout layout = new GridLayout();
-        container.setLayout(layout);
+        Composite container = createContainer(parent);
         GridData gridDataForLabel = new GridData(300, 50);
         Label label1 = new Label(container, SWT.NULL);
         label1.setText("Say hello to Fred");
@@ -40,5 +36,13 @@ public class SelectCommitsWizardPage extends WizardPage
         setPageComplete(false);
         setTitle("commits selection");
         setDescription("Select your commits for code review...");
+    }
+    
+    private Composite createContainer(Composite parent)
+    {
+        Composite result = new Composite(parent, SWT.NULL);
+        GridLayout layout = new GridLayout();
+        result.setLayout(layout);
+        return result;
     }
 }
