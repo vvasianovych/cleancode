@@ -1,0 +1,4 @@
+ReviewCreationWizard wizard = new ReviewCreationWizard();
+	Shell sh = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+        WizardDialog dialog = new WizardDialog(sh, wizard);
+        dialog.open();   

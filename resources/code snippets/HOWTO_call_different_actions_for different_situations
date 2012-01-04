@@ -1,0 +1,35 @@
+<extension point="org.eclipse.ui.popupMenus">
+      <objectContribution adaptable="true"
+            id="com.keebraa.java.cleancode.core.createReview.mercurial"
+            objectClass="org.eclipse.core.resources.IProject">
+        	<filter
+               name="projectPersistentProperty"
+               value="org.eclipse.team.core.repository=com.vectrace.MercurialEclipse.team.MercurialTeamProvider">
+    		</filter>
+
+         <action
+               class="com.keebraa.java.cleancode.core.actions.CreateMercurialReviewAction"
+               id="com.keebraa.java.cleancode.core.actions.createReviewAction"
+               label="Create CodeReview (mercurial)"          
+               enablesFor="1"
+               menubarPath="team.main/group3" >
+         </action>
+      </objectContribution>
+      
+      <objectContribution adaptable="true"
+            id="com.keebraa.java.cleancode.core.createReview"
+            objectClass="org.eclipse.core.resources.IProject">
+        	<filter
+               name="projectPersistentProperty"
+               value="org.eclipse.team.core.repository=org.eclipse.egit.core.GitProvider">
+           </filter>
+
+         <action
+               class="com.keebraa.java.cleancode.core.actions.CreateGitReviewAction"
+               id="com.keebraa.java.cleancode.core.actions.createReviewAction"
+               label="Create CodeReview (Git)"          
+               enablesFor="1"
+               menubarPath="team.main/group3" >
+         </action>
+      </objectContribution>
+   </extension>

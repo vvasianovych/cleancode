@@ -1,1 +1,3 @@
-- I use -Dtycho.targetPlatform variable for resolving target platform. Note that I use mercurialEclipse (see in this dir) as well.  
+- I use -Dtycho.targetPlatform variable for resolving target platform. Note that I use mercurialEclipse (see in this dir) as well.
+-http://repository.grepcode.com/java/eclipse.org/3.7/plugins/ - very usefull site with plugin sources
+http://www.eclipse.org/swt/snippets/  

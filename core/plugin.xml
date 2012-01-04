@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="com.keebraa.java.cleancode.core.model" name="cleancode.core.model" schema="schema/com.keebraa.java.cleancode.core.model.exsd"/>
+   <extension-point id="com.keebraa.java.cleancode.core.changeSetFactory" name="changeSetFactory" schema="schema/changeSetFactory.exsd"/>
     <extension point="org.eclipse.core.expressions.definitions">
         <definition id="com.keebraa.cleancode.core.underControlDefinition">
 			<test
@@ -16,57 +16,15 @@
             objectClass="org.eclipse.core.resources.IProject">
         	<filter
                name="projectPersistentProperty"
-               value="org.eclipse.team.core.repository=com.vectrace.MercurialEclipse.team.MercurialTeamProvider">
-           </filter>
-
+               value="org.eclipse.team.core.repository">
+    		</filter>
          <action
                class="com.keebraa.java.cleancode.core.actions.CreateReviewAction"
                id="com.keebraa.java.cleancode.core.actions.createReviewAction"
-               label="Create CodeReview (mercurial)"          
-               enablesFor="1"
-               menubarPath="team.main/group3" >
-         </action>
-      </objectContribution>
-      
-      <objectContribution adaptable="true"
-            id="com.keebraa.java.cleancode.core.createReview"
-            objectClass="org.eclipse.core.resources.IProject">
-        	<filter
-               name="projectPersistentProperty"
-               value="org.eclipse.team.core.repository=org.eclipse.egit.core.GitProvider">
-           </filter>
-
-         <action
-               class="com.keebraa.java.cleancode.core.actions.CreateReviewAction"
-               id="com.keebraa.java.cleancode.core.actions.createReviewAction"
-               label="Create CodeReview (Git)"          
+               label="Create CodeReview"          
                enablesFor="1"
                menubarPath="team.main/group3" >
          </action>
       </objectContribution>
    </extension>
-   
-<!--	<extension point="org.eclipse.ui.menus">
-        <menuContribution locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-            <menu label="T&amp;eam" id="team.main">
-            	<separator name="group1" visible="true"/>
-            	<separator name="group2" visible="true"/>
-            	<command commandId="com.keebraa.java.cleancode.core.createCodeReview" />
-            </menu>
-		</menuContribution>
-	</extension>
-	
-   <extension point="org.eclipse.ui.commands">
-      <command
-            categoryId="com.keebraa.java.cleancode.core.codeReviewCategory"
-            id="com.keebraa.java.cleancode.core.createCodeReview"
-            name="Create CodeReview">
-      </command>
-      <category
-              description="CleanCode codeReview manipulation category."
-              id="com.keebraa.java.cleancode.core.codeReviewCategory"
-              name="codeReviewCategory">
-        </category>
-   </extension>
--->
 </plugin>

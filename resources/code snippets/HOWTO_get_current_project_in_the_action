@@ -1,0 +1,10 @@
+implements IActionDelegate
+
+private IProject project;
+
+@Override
+    public void selectionChanged(IAction action, ISelection selection)
+    {
+        IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+        project = (IProject) structuredSelection.getFirstElement();
+    }
