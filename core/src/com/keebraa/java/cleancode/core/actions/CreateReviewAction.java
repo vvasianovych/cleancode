@@ -22,10 +22,10 @@ public class CreateReviewAction implements IActionDelegate
 	{
 	    try
 	    {
-		final Object o = element.createExecutableExtension("factory");
-		if (o instanceof ChangeSetFactory)
+		final Object object = element.createExecutableExtension("factory");
+		if (object instanceof ChangeSetFactory)
 		    {
-			ChangeSetFactory factory = (ChangeSetFactory) o;
+			ChangeSetFactory factory = (ChangeSetFactory) object;
 			System.out.println(factory.getRealizationName());
 		    }
 	    }
@@ -39,6 +39,5 @@ public class CreateReviewAction implements IActionDelegate
     @Override
     public void selectionChanged(IAction action, ISelection selection)
     {
-
     }
 }

@@ -1139,7 +1139,7 @@
            adaptable="true"
            objectClass="org.eclipse.core.resources.IResource"
            id="com.vectrace.MercurialEclipse.IResourceContributions">
-           <filter
+           <filter 
                name="projectPersistentProperty"
                value="org.eclipse.team.core.repository=com.vectrace.MercurialEclipse.team.MercurialTeamProvider">
            </filter>
@@ -1310,7 +1310,7 @@
                label="%openSelectedRevision"
                path="additions">
          </action>
-      	 <action
+      	 <action      	 
                class="com.vectrace.MercurialEclipse.actions.OpenCurrentVersionDelegate"
                enablesFor="1"
                id="com.vectrace.MercurialEclipse.actions.OpenCurrentVersionDelegate"
