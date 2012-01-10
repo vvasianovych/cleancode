@@ -1,43 +1,28 @@
 package com.keebraa.java.cleancode.core.actions;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IActionDelegate;
 
-import com.keebraa.java.cleancode.core.extensionpoints.ChangeSetFactory;
+import com.keebraa.java.cleancode.core.CleanCodeEngine;
 
 public class CreateReviewAction implements IActionDelegate
 {
-    private static final String CHANGESETFACTORY_POINTNAME = "com.keebraa.java.cleancode.core.changeSetFactory";
+    private IProject project;
 
     @Override
     public void run(IAction action)
     {
-	IConfigurationElement[] configElements = Platform.getExtensionRegistry()
-		.getConfigurationElementsFor(CHANGESETFACTORY_POINTNAME);
-	for (IConfigurationElement element : configElements)
-	{
-	    try
-	    {
-		final Object object = element.createExecutableExtension("factory");
-		if (object instanceof ChangeSetFactory)
-		    {
-			ChangeSetFactory factory = (ChangeSetFactory) object;
-			System.out.println(factory.getRealizationName());
-		    }
-	    }
-	    catch (CoreException e)
-	    {
-		e.printStackTrace();
-	    }
-	}
+	if(project != null)
+	    CleanCodeEngine.createCodeReview(project);
     }
 
     @Override
     public void selectionChanged(IAction action, ISelection selection)
     {
+	IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+	project = (IProject) structuredSelection.getFirstElement();
     }
 }
