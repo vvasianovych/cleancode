@@ -20,7 +20,7 @@ public interface ChangeSetFactory
      */
     public boolean canHandle(RepositoryProvider provider);
 
-    public List<Commit> getAllChangeSets();
+    public List<Commit> getAllCommits();
     
     public String getRealizationName();
 }

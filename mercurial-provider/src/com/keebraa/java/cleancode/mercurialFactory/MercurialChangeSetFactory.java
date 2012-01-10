@@ -7,6 +7,7 @@ import org.eclipse.team.core.RepositoryProvider;
 
 import com.keebraa.java.cleancode.core.extensionpoints.ChangeSetFactory;
 import com.keebraa.java.cleancode.core.model.Commit;
+import com.keebraa.java.cleancode.core.model.CommitFile;
 
 public class MercurialChangeSetFactory implements ChangeSetFactory
 {
@@ -22,9 +23,11 @@ public class MercurialChangeSetFactory implements ChangeSetFactory
     }
 
     @Override
-    public List<Commit> getAllChangeSets()
+    public List<Commit> getAllCommits()
     {
-	return new ArrayList<Commit>();
+	List<Commit> commits = new ArrayList<Commit>();
+	commits.add(new Commit(new ArrayList<CommitFile>(), "111111", "aaaaaa"));
+	return commits;
     }
 
     @Override

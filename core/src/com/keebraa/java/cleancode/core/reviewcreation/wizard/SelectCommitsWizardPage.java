@@ -1,12 +1,18 @@
 package com.keebraa.java.cleancode.core.reviewcreation.wizard;
 
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.CheckboxCellEditor;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
+
+import com.keebraa.java.cleancode.core.extensionpoints.ChangeSetFactory;
+import com.keebraa.java.cleancode.core.model.Commit;
 
 public class SelectCommitsWizardPage extends WizardPage
 {
@@ -26,11 +32,12 @@ public class SelectCommitsWizardPage extends WizardPage
 
     private final int COMMENT_COLUMN_WIDTH = 370;
 
-    private Table commitTable;
+    private ChangeSetFactory factory;
 
-    protected SelectCommitsWizardPage(String pageName)
+    public SelectCommitsWizardPage(String pageName, ChangeSetFactory factory)
     {
 	super(pageName);
+	this.factory = factory;
     }
 
     @Override
@@ -38,38 +45,53 @@ public class SelectCommitsWizardPage extends WizardPage
     {
 	setTitle(PAGE_TITLE);
 	setDescription(PAGE_DESCRIPTION);
-	FormData formData = new FormData();
-	formData.left = new FormAttachment(0, 0);
-	formData.top = new FormAttachment(0, 0);
-	formData.right = new FormAttachment(100, 0);
-	formData.bottom = new FormAttachment(100, 0);
-	getCommitTable(parent, formData);
+	addCommitTable(parent);
 	setControl(parent);
 	setPageComplete(false);
     }
 
-    private Composite getCommitTable(Composite parent, Object layoutData)
+    private void addCommitTable(Composite parent)
     {
-	if (commitTable == null)
-	{
-	    commitTable = new Table(parent, SWT.CHECK | SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+	TableViewer tableViewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
+	CellEditor[] editors = new CellEditor[1];
+	
+	TableViewerColumn column = new TableViewerColumn(tableViewer, SWT.NONE);
+	column.getColumn().setText("aaa");
+	column.getColumn().setWidth(100);
+	editors[0] = new CheckboxCellEditor(tableViewer.getTable());
+	tableViewer.setCellEditors(editors);
+	tableViewer.setUseHashlookup(true);
+	tableViewer.getTable().setHeaderVisible(true);
+	tableViewer.setColumnProperties(new String[]{"aaaa"});
+	
+//	Table commitTable = new Table(parent, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION);
+//	tableViewer.setCellEditors(editors)
+//	TableColumn checkBoxColumn = new TableColumn(commitTable, SWT.LEFT);
+//	checkBoxColumn.setText(CHECKBOX_COLUMN_TITLE);
+//	checkBoxColumn.setWidth(CHECKBOX_COLUMN_WIDTH);
+//	checkBoxColumn.setResizable(false);
+//
+//	TableColumn numberCommitColumn = new TableColumn(commitTable, SWT.CENTER | SWT.CHECK);
+//	numberCommitColumn.setText(NUMBER_COLUMN_TITLE);
+//	numberCommitColumn.setWidth(NUMBER_COLUMN_WIDTH);
+//	numberCommitColumn.setResizable(false);
+//
+//	TableColumn commentColumn = new TableColumn(commitTable, SWT.CENTER);
+//	commentColumn.setText(COMMENT_COLUMN_TITLE);
+//	commentColumn.setWidth(COMMENT_COLUMN_WIDTH);
+//	commentColumn.setResizable(false);
+//	
+//	commitTable.setHeaderVisible(true);
+//	return commitTable;
+    }
 
-	    TableColumn checkBoxColumn = new TableColumn(commitTable, SWT.LEFT);
-	    checkBoxColumn.setText(CHECKBOX_COLUMN_TITLE);
-	    checkBoxColumn.setWidth(CHECKBOX_COLUMN_WIDTH);
-	    checkBoxColumn.setResizable(false);
-	    
-	    TableColumn numberCommitColumn = new TableColumn(commitTable, SWT.CENTER);
-	    numberCommitColumn.setText(NUMBER_COLUMN_TITLE);
-	    numberCommitColumn.setWidth(NUMBER_COLUMN_WIDTH);
-	    numberCommitColumn.setResizable(false);
-	    
-	    TableColumn commentColumn = new TableColumn(commitTable, SWT.CENTER);
-	    commentColumn.setText(COMMENT_COLUMN_TITLE);
-	    commentColumn.setWidth(COMMENT_COLUMN_WIDTH);
-	    commentColumn.setResizable(false);
-	    commitTable.setHeaderVisible(true);
+    private void fillCommitsTable(Table table)
+    {
+	for (Commit commit : factory.getAllCommits())
+	{
+	    TableItem item = new TableItem(table, SWT.NONE);
+	    item.setText(1, commit.getForeignNumber());
+	    item.setText(2, commit.getDescription());
 	}
-	return commitTable;
     }
 }

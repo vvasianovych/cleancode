@@ -16,12 +16,15 @@ public class Commit
     
     private String foreignNumber;
     
+    private String description;
+    
     private UUID id;
     
-    public Commit(List<CommitFile> files, String foreignNumber)
+    public Commit(List<CommitFile> files, String foreignNumber, String description)
     {
         this.files = files;
         this.foreignNumber = foreignNumber;
+        this.description = description;
         id = UUID.randomUUID();
     }
     
@@ -38,6 +41,11 @@ public class Commit
     public UUID getId()
     {
         return id;
+    }
+    
+    public String getDescription()
+    {
+	return description;
     }
     
     @Override

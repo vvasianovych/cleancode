@@ -9,7 +9,7 @@ import com.keebraa.java.cleancode.core.model.Commit;
 public class DefaultChangeSetFactory implements ChangeSetFactory
 {
     @Override
-    public List<Commit> getAllChangeSets()
+    public List<Commit> getAllCommits()
     {
 	return null;
     }

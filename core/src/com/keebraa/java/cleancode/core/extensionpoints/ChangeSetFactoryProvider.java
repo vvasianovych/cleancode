@@ -15,10 +15,11 @@ public class ChangeSetFactoryProvider
 {
     private static final String CHANGESETFACTORY_POINTNAME = "com.keebraa.java.cleancode.core.changeSetFactory";
     private static final String FACTORY_ATTRIBUTE = "factory";
-    
+
     public ChangeSetFactory getChangeSetFactory() throws ChangeSetFactoryNotFoundException
     {
-	ChangeSetFactory factory = ExtensionPointsUtil.getUniqueExtensionPointRealization(CHANGESETFACTORY_POINTNAME, FACTORY_ATTRIBUTE, ChangeSetFactory.class);
+	ChangeSetFactory factory = ExtensionPointsUtil.getUniqueExtensionPointRealization(CHANGESETFACTORY_POINTNAME,
+		FACTORY_ATTRIBUTE, ChangeSetFactory.class);
 	return factory;
     }
 }
