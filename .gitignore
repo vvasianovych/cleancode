@@ -1,8 +1,9 @@
 *.class
 **/*.class
-core/target
-core-tests/target
-mercurial-provider/target
+cleancode-core/target
+cleancode-core-tests/target
+mercurial-driver/target
+mercurial-driver-tests/target
 **/.project
 **/.classpath
 **/.settings
