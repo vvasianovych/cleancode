@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: clancode-core-tests;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: com.keebraa.java.cleancode.core.tests.Activator
+Bundle-Vendor: keebraa
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit,
+ org.eclipse.core.resources
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
