@@ -35,6 +35,7 @@ public class ExceptionHandlingTool
 	ExceptionHandler handler = handlers.get(exception);
 	if(handler == null)
 	{
+	    exception.printStackTrace();
 	    throw new RuntimeException(this.getClass().getName()+":: there is no handler for exception: "+exception.getClass().getCanonicalName());
 	}
 	handler.handle(exception);

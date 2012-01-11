@@ -6,14 +6,14 @@ public class ReviewCreationWizard extends Wizard
 {
     private static final String WIZARD_TITLE = "Create your code review";
 
+    public ReviewCreationWizard()
+    {
+	setWindowTitle(WIZARD_TITLE);
+    }
+    
     @Override
     public boolean performFinish()
     {
 	return false;
-    }
-
-    @Override
-    public void addPages()
-    {
     }
 }
