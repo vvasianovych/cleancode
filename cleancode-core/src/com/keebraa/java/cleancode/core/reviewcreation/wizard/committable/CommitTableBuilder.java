@@ -1,5 +1,6 @@
 package com.keebraa.java.cleancode.core.reviewcreation.wizard.committable;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
@@ -16,13 +17,15 @@ public class CommitTableBuilder
     private final String COMMENT_TITLE = "comment";
     private Table commitTable;
     private CommitRepository repository;
+    private IProject project;
 
-    public CommitTableBuilder(CommitRepository repository)
+    public CommitTableBuilder(CommitRepository repository, IProject project)
     {
 	if(repository == null)
 	{
 	    throw new CommitTableBuilderException("CommitRepository can't be null");
 	}
+	this.project = project;
 	this.repository = repository;
     }
     
@@ -63,7 +66,7 @@ public class CommitTableBuilder
 
     private void fillTable()
     {
-	for(Commit commit : repository.getAllCommits())
+	for(Commit commit : repository.getAllCommits(project))
 	{
 	    TableItem item = new TableItem(getTable(), SWT.NONE);
 	    item.setText(new String[]{"", commit.getForeignNumber(), commit.getDescription()});

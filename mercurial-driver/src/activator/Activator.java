@@ -1,4 +1,4 @@
-package mercurialprovider;
+package activator;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;

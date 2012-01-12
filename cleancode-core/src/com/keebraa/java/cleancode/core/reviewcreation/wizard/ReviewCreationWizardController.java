@@ -53,7 +53,7 @@ public class ReviewCreationWizardController
     
     private WizardPage createCommitsSelectionPage()
     {
-	SelectCommitsWizardPage page = new SelectCommitsWizardPage(SELECT_COMMITS_PAGE, factory);
+	SelectCommitsWizardPage page = new SelectCommitsWizardPage(SELECT_COMMITS_PAGE, factory, project);
 	return page;
     }
 }

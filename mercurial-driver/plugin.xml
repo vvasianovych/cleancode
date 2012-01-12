@@ -4,7 +4,7 @@
    <extension
          point="com.keebraa.java.cleancode.core.commitRepository">
       <commitRepository
-            repository="com.keebraa.java.cleancode.mercurialRepository.MercurialCommitRepository">
+            repository="com.keebraa.java.cleancode.repository.MercurialCommitRepository">
       </commitRepository>
    </extension>
 </plugin>

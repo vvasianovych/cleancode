@@ -2,6 +2,7 @@ package com.keebraa.java.cleancode.core.extensionpoints;
 
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.team.core.RepositoryProvider;
 
 import com.keebraa.java.cleancode.core.model.Commit;
@@ -20,7 +21,7 @@ public interface CommitRepository
      */
     public boolean canHandle(RepositoryProvider provider);
 
-    public List<Commit> getAllCommits();
+    public List<Commit> getAllCommits(IProject project);
     
     public String getRealizationName();
 }
