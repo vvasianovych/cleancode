@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.team.core;bundle-version="3.6.0",
  com.keebraa.java.cleancode.cleancode-core;bundle-version="1.0.0",
- com.vectrace.MercurialEclipse;bundle-version="1.9.0",
+ com.vectrace.MercurialEclipse,
  org.eclipse.core.resources;bundle-version="3.7.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
