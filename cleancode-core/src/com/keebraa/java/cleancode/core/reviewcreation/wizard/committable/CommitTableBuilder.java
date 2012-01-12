@@ -2,7 +2,9 @@ package com.keebraa.java.cleancode.core.reviewcreation.wizard.committable;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -33,8 +35,27 @@ public class CommitTableBuilder
     {
 	commitTable = new Table(parent, SWT.CHECK | SWT.BORDER | SWT.MULTI);
 	commitTable.setHeaderVisible(true);
+	createCheckBoxColumn();	
+	createForeignNumberColumn();
+	createCommentColumn();
+	fillTable();
     }
 
+    public void setCommitRepository(CommitRepository repository)
+    {
+	this.repository = repository;
+    }
+    
+    public void setTableSelectionListener(SelectionListener listener)
+    {
+	 getTable().addSelectionListener(listener);
+    }
+    
+    public Table build()
+    {
+	return getTable();
+    }
+    
     private void createCheckBoxColumn()
     {
 	TableColumn column = new TableColumn(getTable(), SWT.NONE);
@@ -71,18 +92,5 @@ public class CommitTableBuilder
 	    TableItem item = new TableItem(getTable(), SWT.NONE);
 	    item.setText(new String[]{"", commit.getForeignNumber(), commit.getDescription()});
 	}
-    }
-    public void setCommitRepository(CommitRepository repository)
-    {
-	this.repository = repository;
-    }
-    
-    public Table build()
-    {
-	createCheckBoxColumn();	
-	createForeignNumberColumn();
-	createCommentColumn();
-	fillTable();
-	return getTable();
     }
 }

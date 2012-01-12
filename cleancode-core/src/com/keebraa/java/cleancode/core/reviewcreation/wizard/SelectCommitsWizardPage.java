@@ -37,8 +37,10 @@ public class SelectCommitsWizardPage extends WizardPage
 
    private Table createCommitTable(Composite parent)
    {
+	CommitSelectListener listener = new CommitSelectListener(this);
 	CommitTableBuilder builder = new CommitTableBuilder(repository, project);
 	builder.createTable(parent);
+	builder.setTableSelectionListener(listener);
 	return builder.build();
    }
 }
