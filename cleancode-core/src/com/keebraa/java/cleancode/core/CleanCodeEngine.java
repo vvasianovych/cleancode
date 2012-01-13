@@ -9,7 +9,7 @@ import com.keebraa.java.cleancode.core.exceptions.CodeReviewSavingException;
 import com.keebraa.java.cleancode.core.extensionpoints.CommitRepository;
 import com.keebraa.java.cleancode.core.extensionpoints.CommitRepositoryProvider;
 import com.keebraa.java.cleancode.core.model.CodeReview;
-import com.keebraa.java.cleancode.core.reviewcreation.wizard.ReviewCreationWizardController;
+import com.keebraa.java.cleancode.core.reviewcreation.wizard.ReviewCreationController;
 import com.keebraa.java.cleancode.core.storage.CodeReviewStorage;
 import com.keebraa.java.cleancode.core.storage.CodeReviewStorageFactory;
 
@@ -21,43 +21,44 @@ import com.keebraa.java.cleancode.core.storage.CodeReviewStorageFactory;
  */
 public class CleanCodeEngine
 {
-    /**
-     * Only one reason for me to create two different methods "createCodeReview"
-     * and "createCodeReviewForProject" - I want to handle exception out of my
-     * working method. Thats why I made this
-     * method - to call useful code and control exceptions.
-     * 
-     * @param project
-     */
-    public static void createCodeReview(IProject project)
-    {
+   /**
+    * Only one reason for me to create two different methods "createCodeReview"
+    * and "createCodeReviewForProject" - I want to handle exception out of my
+    * working method. Thats why I made this method - to call useful code and
+    * control exceptions.
+    * 
+    * @param project
+    */
+   public static void createCodeReview(IProject project)
+   {
 	try
 	{
-	    CodeReview codeReview = createCodeReviewForProject(project);
-	    storeCodeReview(codeReview);
+	   CodeReview codeReview = createCodeReviewForProject(project);
+	   storeCodeReview(codeReview);
 	}
 	catch (Throwable exception)
 	{
-	    ExceptionHandlingTool.getInstance().handleException(exception);
+	   ExceptionHandlingTool.getInstance().handleException(exception);
 	}
-    }
+   }
 
-    private static CodeReview createCodeReviewForProject(IProject project) throws CommitRepositoryNotFoundException, CodeReviewCreationException
-    {
+   private static CodeReview createCodeReviewForProject(IProject project) throws CommitRepositoryNotFoundException,
+	   CodeReviewCreationException
+   {
 	CommitRepositoryProvider provider = new CommitRepositoryProvider();
-	CommitRepository factory = provider.getCommitRepository();
-	ReviewCreationWizardController wizardController = new ReviewCreationWizardController(project, factory);
-	CodeReview review = wizardController.createCodeReview();
-	if(review == null)
+	CommitRepository commitRepository = provider.getCommitRepository();
+	ReviewCreationController wizardController = new ReviewCreationController(project, commitRepository);
+	CodeReview review = wizardController.performReviewCreationWizard();
+	if (review == null)
 	{
-	    throw new CodeReviewCreationException();
+	   throw new CodeReviewCreationException();
 	}
 	return review;
-    }
-    
-    private static void storeCodeReview(CodeReview codeReview) throws CodeReviewSavingException
-    {
+   }
+
+   private static void storeCodeReview(CodeReview codeReview) throws CodeReviewSavingException
+   {
 	CodeReviewStorage storage = CodeReviewStorageFactory.getCodeReviewStorage();
 	storage.storeCodeReview(codeReview);
-    }
+   }
 }

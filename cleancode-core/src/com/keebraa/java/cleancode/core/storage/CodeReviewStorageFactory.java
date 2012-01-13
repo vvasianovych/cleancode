@@ -9,8 +9,8 @@ package com.keebraa.java.cleancode.core.storage;
  */
 public class CodeReviewStorageFactory
 {
-    public static CodeReviewStorage getCodeReviewStorage()
-    {
+   public static CodeReviewStorage getCodeReviewStorage()
+   {
 	return null;
-    }
+   }
 }

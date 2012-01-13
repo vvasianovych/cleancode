@@ -1,10 +1,9 @@
-package com.keebraa.java.cleancode.core.reviewcreation.wizard.committable;
+package com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -91,6 +90,7 @@ public class CommitTableBuilder
 	{
 	    TableItem item = new TableItem(getTable(), SWT.NONE);
 	    item.setText(new String[]{"", commit.getForeignNumber(), commit.getDescription()});
+	    item.setData(commit);
 	}
     }
 }
