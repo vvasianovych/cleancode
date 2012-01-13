@@ -8,5 +8,6 @@ mercurial-driver-tests/target
 **/.classpath
 **/.settings
 .settings
+target
 mercurialEclipse
 mercurialEclipse/**/*
