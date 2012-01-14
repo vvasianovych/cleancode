@@ -1,5 +1,7 @@
 package com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;
 
+import org.eclipse.jface.wizard.IWizardPage;
+
 /**
  * This builder is an "interface" for this package. In a more general
  * understanding. To create page - please, use this builder. The main goals for
@@ -17,7 +19,7 @@ public class CommitSelectionWizardPageBuilder
 	this.commitTableBuilder = commitTableBuilder;
    }
 
-   public CommitSelectionWizardPage build()
+   public IWizardPage build()
    {
 	return new CommitSelectionWizardPage(commitTableBuilder);
    }

@@ -1,5 +1,6 @@
 package com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;
 
+import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Table;
@@ -35,11 +36,11 @@ public class CommitSelectionListener implements SelectionListener
 	   }
 	}
 	Object pageObject = table.getData();
-	if(!(pageObject instanceof CommitSelectionWizardPage))
+	if(!(pageObject instanceof WizardPage))
 	{
 	   return;
 	}
-	CommitSelectionWizardPage page = (CommitSelectionWizardPage) pageObject;
+	WizardPage page = (WizardPage) pageObject;
 	page.setPageComplete(selected);
    }
 
