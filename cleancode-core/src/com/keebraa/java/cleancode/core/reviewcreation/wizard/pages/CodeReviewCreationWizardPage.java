@@ -1,4 +1,4 @@
-package com.keebraa.java.cleancode.core.reviewcreation.wizard;
+package com.keebraa.java.cleancode.core.reviewcreation.wizard.pages;
 
 import com.keebraa.java.cleancode.core.model.builders.CodeReviewBuilder;
 

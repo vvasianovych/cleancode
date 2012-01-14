@@ -9,6 +9,7 @@ import org.eclipse.ui.PlatformUI;
 import com.keebraa.java.cleancode.core.extensionpoints.CommitRepository;
 import com.keebraa.java.cleancode.core.model.CodeReview;
 import com.keebraa.java.cleancode.core.model.builders.CodeReviewBuilder;
+import com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.CodeReviewCreationWizardPage;
 
 /**
  * Controller is responsible for creation of the {@link CodeReview}.

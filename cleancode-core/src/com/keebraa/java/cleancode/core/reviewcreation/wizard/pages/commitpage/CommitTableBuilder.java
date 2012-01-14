@@ -1,4 +1,4 @@
-package com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;
+package com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.commitpage;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.WizardPage;
@@ -52,9 +52,9 @@ public class CommitTableBuilder
 	this.repository = repository;
    }
 
-   public void setSelectionListener(SelectionListener listener)
+   public void createSelectionListener()
    {
-	this.listener = listener;
+	this.listener = new CommitSelectionListener();
    }
 
    public void setPage(WizardPage page)

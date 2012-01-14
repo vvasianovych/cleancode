@@ -1,4 +1,4 @@
-package com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;
+package com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.commitpage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 import com.keebraa.java.cleancode.core.model.Commit;
 import com.keebraa.java.cleancode.core.model.builders.CodeReviewBuilder;
-import com.keebraa.java.cleancode.core.reviewcreation.wizard.CodeReviewCreationWizardPage;
+import com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.CodeReviewCreationWizardPage;
 
 public class CommitSelectionWizardPage extends WizardPage implements CodeReviewCreationWizardPage
 {

@@ -1,4 +1,4 @@
-package com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;
+package com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.commitpage;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.events.SelectionEvent;

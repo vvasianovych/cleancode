@@ -15,6 +15,6 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.keebraa.java.cleancode.core.extensionpoints,
  com.keebraa.java.cleancode.core.model,
- com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;x-friends:="clancode-core-tests"
+ com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.commitpage;x-friends:="clancode-core-tests"
 Import-Package: org.eclipse.ui
 

@@ -2,12 +2,10 @@ package com.keebraa.java.cleancode.core.reviewcreation.wizard;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.swt.events.SelectionListener;
 
 import com.keebraa.java.cleancode.core.extensionpoints.CommitRepository;
-import com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage.CommitSelectionListener;
-import com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage.CommitSelectionWizardPageBuilder;
-import com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage.CommitTableBuilder;
+import com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.commitpage.CommitSelectionWizardPageBuilder;
+import com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.commitpage.CommitTableBuilder;
 
 /**
  * This builder encapsulates the whole logic for Wizard creation.
@@ -30,8 +28,7 @@ public class CodeReviewCreationWizardBuilder
    private IWizardPage createCommitSelectionPage()
    {
 	CommitTableBuilder commitTableBuilder = new CommitTableBuilder(repository, project);
-	SelectionListener listener = new CommitSelectionListener();
-	commitTableBuilder.setSelectionListener(listener);
+	commitTableBuilder.createSelectionListener();
 	CommitSelectionWizardPageBuilder pageBuilder = new CommitSelectionWizardPageBuilder();
 	pageBuilder.setCommitTableBuilder(commitTableBuilder);
 	return pageBuilder.build();
