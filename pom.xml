@@ -53,7 +53,7 @@
 
 	<modules>
 		<module>cleancode-core</module>
-		<module>cleancode-core.tests</module>
+		<module>cleancode-core-tests</module>
 		<module>mercurial-driver</module>
 	</modules>
 	<build>
