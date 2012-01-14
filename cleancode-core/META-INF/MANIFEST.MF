@@ -10,9 +10,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources;bundle-version="3.7.100",
  org.eclipse.team.core;bundle-version="3.6.0",
  org.eclipse.team.ui;bundle-version="3.6.100",
- org.eclipse.core.expressions;bundle-version="3.4.300"
+ org.eclipse.core.expressions;bundle-version="3.4.300",
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.keebraa.java.cleancode.core.extensionpoints,
- com.keebraa.java.cleancode.core.model
+ com.keebraa.java.cleancode.core.model,
+ com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;x-friends:="clancode-core-tests"
 Import-Package: org.eclipse.ui
 

@@ -3,34 +3,31 @@ package com.keebraa.java.cleancode.core.reviewcreation.wizard.commitpage;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
-import com.keebraa.java.cleancode.core.extensionpoints.CommitRepository;
 import com.keebraa.java.cleancode.core.model.Commit;
 import com.keebraa.java.cleancode.core.model.builders.CodeReviewBuilder;
 import com.keebraa.java.cleancode.core.reviewcreation.wizard.CodeReviewCreationWizardPage;
 
 public class CommitSelectionWizardPage extends WizardPage implements CodeReviewCreationWizardPage
 {
+   private final static String PAGENAME = "commit_selection_wizard_page";
+   
    private final String PAGE_TITLE = "Select your commits";
 
    private final String PAGE_DESCRIPTION = "Please, select changes for code review";
 
-   private CommitRepository repository;
-
-   private IProject project;
-
    private Table commitTable;
-
-   public CommitSelectionWizardPage(String pageName, CommitRepository repository, IProject project)
+   
+   private CommitTableBuilder commitTableBuilder;
+   
+   public CommitSelectionWizardPage(CommitTableBuilder commitTableBuilder)
    {
-	super(pageName);
-	this.repository = repository;
-	this.project = project;
+	super(PAGENAME);
+	this.commitTableBuilder = commitTableBuilder;
    }
 
    @Override
@@ -59,11 +56,9 @@ public class CommitSelectionWizardPage extends WizardPage implements CodeReviewC
 
    private Table createCommitTable(Composite parent)
    {
-	CommitSelectListener listener = new CommitSelectListener(this);
-	CommitTableBuilder builder = new CommitTableBuilder(repository, project);
-	builder.createTable(parent);
-	builder.setTableSelectionListener(listener);
-	return builder.build();
+	commitTableBuilder.setParent(parent);
+	commitTableBuilder.setPage(this);
+	return commitTableBuilder.build();
    }
 
    @Override
