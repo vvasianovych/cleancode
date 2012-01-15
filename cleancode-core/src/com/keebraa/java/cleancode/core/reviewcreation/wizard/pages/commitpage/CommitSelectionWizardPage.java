@@ -49,7 +49,8 @@ public class CommitSelectionWizardPage extends WizardPage implements CodeReviewC
 	   {
 		continue;
 	   }
-	   item.getData();
+	   Commit commit = (Commit)item.getData();
+	   selectedCommits.add(commit);
 	}
 	return selectedCommits;
    }
