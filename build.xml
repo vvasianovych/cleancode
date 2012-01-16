@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="cleancode eclipse plugin" default="jar" basedir=".">
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath>
+			<pathelement location="${ant-contrib}" />
+		</classpath>
+	</taskdef>
+
+	<property file="build.properties" />
+	<path id="targetplatform">
+		<fileset dir="${targetplatform}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="jar">
+		<antcall target="cleancode-core-compile" />
+	</target>
+
+	<target name="clean-jar">
+		<antcall target="cleancode-core-compile">
+			<param name="clean" value="true" />
+		</antcall>
+	</target>
+
+	<target name="cleancode-core-compile">
+		<if>
+			<equals arg1="${clean}" arg2="true" />
+			<then>
+				<delete dir="${cleancode-core.bin}" />
+				<delete file="${cleancode-core.jar}" />
+			</then>
+		</if>
+		<if>
+			<not>
+				<available file="${cleancode-core.bin}" type="dir" />
+			</not>
+			<then>
+				<mkdir dir="${cleancode-core.bin}" />
+			</then>
+		</if>
+		<javac srcdir="${cleancode-core.src}" destdir="${cleancode-core.bin}"
+			includes="**/*.java" debug="on" includeantruntime="false">
+			<classpath refid="targetplatform" />
+		</javac>
+		<jar destfile="${cleancode-core.jar}"
+			manifest="${cleancode-core}/META-INF/MANIFEST.MF">
+					<fileset dir="${cleancode-core}">
+						<include name="schema/**"/>
+						<include name="resources/**"/>
+						<include name="plugin.xml" />
+					</fileset>
+					<fileset dir="${cleancode-core.bin}" />
+		</jar>
+	</target>
+
+</project>
