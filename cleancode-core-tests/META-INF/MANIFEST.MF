@@ -9,7 +9,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.junit,
  org.eclipse.core.resources,
- com.keebraa.java.cleancode.cleancode-core;bundle-version="1.0.0",
- cleancode-libs;bundle-version="1.0.0"
+ com.keebraa.java.cleancode.cleancode-core;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
