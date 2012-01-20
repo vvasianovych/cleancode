@@ -11,3 +11,4 @@ mercurial-driver-tests/target
 target
 mercurialEclipse
 mercurialEclipse/**/*
+tmp

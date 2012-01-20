@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="cleancode eclipse plugin" default="jar" basedir=".">
 
+	<property file="build.properties" />
+	
 	<taskdef resource="net/sf/antcontrib/antlib.xml">
 		<classpath>
 			<pathelement location="${ant-contrib}" />
 		</classpath>
 	</taskdef>
 
-	<property file="build.properties" />
 	<path id="targetplatform">
 		<fileset dir="${targetplatform}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 
+	<path id="test-compile-classpath">
+		<pathelement location="${junit}" />
+		<pathelement location="${mockito}" />
+		<pathelement location="${cleancode-core.bin}" />
+		<path refid="targetplatform" />
+	</path>
+
 	<target name="jar">
+		<antcall target="prepare-environment" />
 		<antcall target="cleancode-core-compile" />
 	</target>
 
+	<target name="prepare-environment">
+		<echo>Preparing environment...</echo>
+		<if>
+			<available file="${tmpdir}" type="dir" />
+			<then>
+				<delete dir="${tmpdir}" />
+			</then>
+		</if>
+		<mkdir dir="${tmpdir}" />
+	</target>
+
 	<target name="clean-jar">
-		<antcall target="cleancode-core-compile">
+		<antcall target="jar">
 			<param name="clean" value="true" />
 		</antcall>
 	</target>
@@ -40,19 +60,33 @@
 				<mkdir dir="${cleancode-core.bin}" />
 			</then>
 		</if>
-		<javac srcdir="${cleancode-core.src}" destdir="${cleancode-core.bin}"
-			includes="**/*.java" debug="on" includeantruntime="false">
+		<echo> Compile code...</echo>
+		<javac srcdir="${cleancode-core.src}" destdir="${cleancode-core.bin}" includes="**/*.java" debug="on" includeantruntime="false" executable="${jdk.home}/bin/javac" fork="yes">
 			<classpath refid="targetplatform" />
 		</javac>
-		<jar destfile="${cleancode-core.jar}"
-			manifest="${cleancode-core}/META-INF/MANIFEST.MF">
-					<fileset dir="${cleancode-core}">
-						<include name="schema/**"/>
-						<include name="resources/**"/>
-						<include name="plugin.xml" />
-					</fileset>
-					<fileset dir="${cleancode-core.bin}" />
+		<echo> Compile tests...</echo>
+		<javac srcdir="${cleancode-core-tests.src}" destdir="${cleancode-core-tests.bin}" includes="**/*Test.java" debug="on" includeantruntime="true" executable="${jdk.home}/bin/javac" fork="yes">
+			<classpath>
+				<path refid="test-compile-classpath" />
+			</classpath>
+		</javac>
+		<junit fork="yes" printsummary="yes" jvm="${jdk.home}/bin/java" haltonfailure="yes" showoutput="true">
+			<formatter type="plain" usefile="false" />
+			<classpath>
+				<path refid="test-compile-classpath" />
+				<pathelement location="${cleancode-core-tests.bin}" />
+			</classpath>
+			<batchtest todir="${tmpdir}">
+				<fileset dir="${cleancode-core-tests.bin}" />
+			</batchtest>
+		</junit>
+		<jar destfile="${cleancode-core.jar}" manifest="${cleancode-core}/META-INF/MANIFEST.MF">
+			<fileset dir="${cleancode-core}">
+				<include name="schema/**" />
+				<include name="resources/**" />
+				<include name="plugin.xml" />
+			</fileset>
+			<fileset dir="${cleancode-core.bin}" />
 		</jar>
 	</target>
-
 </project>
