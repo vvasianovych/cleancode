@@ -12,3 +12,4 @@ target
 mercurialEclipse
 mercurialEclipse/**/*
 tmp
+bin
