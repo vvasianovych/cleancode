@@ -13,3 +13,4 @@ mercurialEclipse
 mercurialEclipse/**/*
 tmp
 bin
+release
