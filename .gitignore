@@ -2,6 +2,7 @@
 **/*.class
 cleancode-core/**/*.class
 cleancode-core/bin
+mercurial-driver/bin
 cleancode-core/target
 cleancode-core-tests/target
 mercurial-driver/target
