@@ -1,92 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="cleancode eclipse plugin" default="jar" basedir=".">
+<project name="cleancode eclipse plugin" >
 
 	<property file="build.properties" />
 	
-	<taskdef resource="net/sf/antcontrib/antlib.xml">
-		<classpath>
-			<pathelement location="${ant-contrib}" />
-		</classpath>
-	</taskdef>
-
+	<!-- 					BASIC VARIABLES. 								-->
+	<!-- Here we set important variables. First of all - is 				-->
+	<!-- the target platform. Also, compile-classpath with all libraries 	-->
+	<!-- for compiling, testing, etc.  										-->
+	
 	<path id="targetplatform">
-		<fileset dir="${targetplatform}">
-			<include name="*.jar" />
-		</fileset>
+		<fileset dir="${cleancode.target-platform}" includes="*.jar" />
 	</path>
-
-	<path id="test-compile-classpath">
-		<pathelement location="${junit}" />
-		<pathelement location="${mockito}" />
-		<pathelement location="${cleancode-core.bin}" />
+	
+	<path id="compile-classpath">
+		<fileset dir="${cleancode.libs}" includes="*.jar" />
 		<path refid="targetplatform" />
 	</path>
-
-	<target name="jar">
-		<antcall target="prepare-environment" />
-		<antcall target="cleancode-core-compile" />
-	</target>
-
+	
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+		<classpath refid="compile-classpath" />
+	</taskdef>
+	
+	<!-- 			BASIC TARGET. CLEAN WHOLE PROJECT STRUCTURE   			-->
+	<!-- Here  we need to remove all bin directories, tmp directories. 		-->
+	<!-- After that we need to create it again. If we have no such 			-->
+	<!-- directories now - just skip deleting, and create it.				-->
+	
 	<target name="prepare-environment">
 		<echo>Preparing environment...</echo>
-		<if>
-			<available file="${tmpdir}" type="dir" />
-			<then>
-				<delete dir="${tmpdir}" />
-			</then>
-		</if>
-		<mkdir dir="${tmpdir}" />
+		<delete dir="${cleancode.tmp}" />
+		<mkdir dir="${cleancode.tmp}" />
 	</target>
-
-	<target name="clean-jar">
-		<antcall target="jar">
-			<param name="clean" value="true" />
-		</antcall>
-	</target>
+	
+	<!-- 				END OF BASIC TARGET PART 							-->
+	
+	<!-- 				 CLEANCODE-CORE TARGETS 							-->
+	<!-- here we have target for preparing cleancode-core project 			--> 
+	<!-- environment. Steps: 												-->
+	<!-- 1. Create temporary directory, that will be the root for the jar 	--> 
+	<!--	file. 															-->
+	<!-- 2. Create here all needed resources, such as bin files, 			--> 
+	<!--	resources, manifest file, plugin.xml etc... 					--> 
+	<!-- 3. Create here result jar file. 									--> 
+	<!-- 4. Copy this jar-file to the release directory 					-->
 
 	<target name="cleancode-core-compile">
-		<if>
-			<equals arg1="${clean}" arg2="true" />
-			<then>
-				<delete dir="${cleancode-core.bin}" />
-				<delete file="${cleancode-core.jar}" />
-			</then>
-		</if>
-		<if>
-			<not>
-				<available file="${cleancode-core.bin}" type="dir" />
-			</not>
-			<then>
-				<mkdir dir="${cleancode-core.bin}" />
-			</then>
-		</if>
+		
+		<antcall target="prepare-environment" />
+		
+		<mkdir dir="${cleancode.tmp}/core" />
+		<property name="core-bin" value="${cleancode.tmp}/core" />
+		
+		<mkdir dir="${cleancode.tmp}/core-tests" />
+		<property name="core-tests" value="${cleancode.tmp}/core-tests" />
+		
+		<mkdir dir="${cleancode.tmp}/core-tests-result" />
+		<property name="core-tests-result" value="${cleancode.tmp}/core-tests" />
+		
 		<echo> Compile code...</echo>
-		<javac srcdir="${cleancode-core.src}" destdir="${cleancode-core.bin}" includes="**/*.java" debug="on" includeantruntime="false" executable="${jdk.home}/bin/javac" fork="yes">
-			<classpath refid="targetplatform" />
+		<javac srcdir="${cleancode-core.src}" destdir="${core-bin}" includeantruntime="false" includes="**/*.java" debug="off" executable="${cleancode.jdk}/bin/javac">
+			<classpath refid="compile-classpath" />
 		</javac>
+		
 		<echo> Compile tests...</echo>
-		<javac srcdir="${cleancode-core-tests.src}" destdir="${cleancode-core-tests.bin}" includes="**/*Test.java" debug="on" includeantruntime="true" executable="${jdk.home}/bin/javac" fork="yes">
+		<javac srcdir="${cleancode-core.tests}" destdir="${core-tests}" includes="**/*Test.java" debug="off" includeantruntime="false" executable="${cleancode.jdk}/bin/javac">
 			<classpath>
-				<path refid="test-compile-classpath" />
+				<path refid="compile-classpath" />
+				<path location="${core-bin}" />
 			</classpath>
 		</javac>
-		<junit fork="yes" printsummary="yes" jvm="${jdk.home}/bin/java" haltonfailure="yes" showoutput="true">
+		
+		<junit printsummary="yes" jvm="${cleancode.jdk}/bin/java" haltonfailure="yes" showoutput="true">
 			<formatter type="plain" usefile="false" />
 			<classpath>
-				<path refid="test-compile-classpath" />
-				<pathelement location="${cleancode-core-tests.bin}" />
+				<path refid="compile-classpath" />
+				<path location="${core-bin}" />
+				<path location="${core-tests}" />
 			</classpath>
-			<batchtest todir="${tmpdir}">
-				<fileset dir="${cleancode-core-tests.bin}" />
+			<batchtest todir="${core-tests-result}">
+				<fileset dir="${core-tests}" />
 			</batchtest>
 		</junit>
-		<jar destfile="${cleancode-core.jar}" manifest="${cleancode-core}/META-INF/MANIFEST.MF">
-			<fileset dir="${cleancode-core}">
+		
+		<delete file="${cleancode.release}/${cleancode-core.jar-name}"/>
+		<jar destfile="${cleancode.release}/${cleancode-core.jar-name}" manifest="${cleancode-core.dir}/META-INF/MANIFEST.MF">
+			<fileset dir="${cleancode-core.dir}">
 				<include name="schema/**" />
 				<include name="resources/**" />
 				<include name="plugin.xml" />
 			</fileset>
-			<fileset dir="${cleancode-core.bin}" />
+			<fileset dir="${core-bin}" />
 		</jar>
 	</target>
+	
+	<target name="mercurial-driver-compile">
+			
+			<antcall target="prepare-environment" />
+			
+			<mkdir dir="${cleancode.tmp}/mercurial-driver" />
+			<property name="mercurial-driver-bin" value="${cleancode.tmp}/mercurial-driver" />
+			
+			<mkdir dir="${cleancode.tmp}/mercurial-driver-tests" />
+			<property name="mercurial-driver-tests" value="${cleancode.tmp}/mercurial-driver-tests" />
+			
+			<mkdir dir="${cleancode.tmp}/mercurial-driver-tests-result" />
+			<property name="mercurial-driver-tests-result" value="${cleancode.tmp}/mercurial-driver-tests-result" />
+			
+			<echo> Compile code...</echo>
+			<javac srcdir="${mercurial-driver.src}" destdir="${mercurial-driver-bin}" includeantruntime="false" includes="**/*.java" debug="off" executable="${cleancode.jdk}/bin/javac">
+				<classpath>
+					<path refid="compile-classpath" /> 
+					<path location="${cleancode.release}/${cleancode-core.jar-name}" />
+				</classpath>
+			</javac>
+<!--			
+			<echo> Compile tests...</echo>
+			<javac srcdir="${mercurial-driver.tests}" destdir="${mercurial-driver-tests}" includes="**/*Test.java" debug="off" includeantruntime="false" executable="${cleancode.jdk}/bin/javac">
+				<classpath>
+					<path refid="compile-classpath" />
+					<path location="${mercurial-driver-bin}" />
+				</classpath>
+			</javac>
+			
+			<junit printsummary="yes" jvm="${cleancode.jdk}/bin/java" haltonfailure="yes" showoutput="true">
+				<formatter type="plain" usefile="false" />
+				<classpath>
+					<path refid="compile-classpath" />
+					<path location="${mercurial-driver-bin}" />
+					<path location="${mercurial-driver-tests}" />
+				</classpath>
+				<batchtest todir="${mercurial-driver-tests-result}">
+					<fileset dir="${mercurial-driver-tests}" />
+				</batchtest>
+			</junit>
+-->			
+			<delete file="${cleancode.release}/${mercurial-driver.jar-name}"/>
+			<jar destfile="${cleancode.release}/${mercurial-driver.jar-name}" manifest="${mercurial-driver.dir}/META-INF/MANIFEST.MF">
+				<fileset dir="${mercurial-driver.dir}">
+					<include name="schema/**" />
+					<include name="resources/**" />
+					<include name="plugin.xml" />
+				</fileset>
+				<fileset dir="${mercurial-driver-bin}" />
+			</jar>
+		</target>
+	
 </project>
