@@ -1,5 +1,6 @@
 *.class
 **/*.class
+cleancode-core/**/*.class
 cleancode-core/target
 cleancode-core-tests/target
 mercurial-driver/target
