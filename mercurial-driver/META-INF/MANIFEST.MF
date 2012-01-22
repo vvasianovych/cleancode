@@ -1,15 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: cleancode mercurial-provider
-Bundle-SymbolicName: com.keebraa.java.cleancode.mercurialdriver;singleton:=true
+Bundle-Name: mercurial-driver
+Bundle-SymbolicName: mercurial-driver;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: activator.Activator
-Bundle-Vendor: keebraa (taqi)
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.team.core;bundle-version="3.6.0",
- com.keebraa.java.cleancode.cleancode-core;bundle-version="1.0.0",
  com.vectrace.MercurialEclipse,
- org.eclipse.core.resources;bundle-version="3.7.100"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+ org.eclipse.core.resources;bundle-version="3.7.100",
+ cleancode-core;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
