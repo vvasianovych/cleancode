@@ -5,10 +5,6 @@ cleancode-core-tests/target
 mercurial-driver/target
 mercurial-driver-tests/target
 .sonar
-**/.project
-**/.classpath
-**/.settings
-.settings
 target
 mercurialEclipse
 mercurialEclipse/**/*
