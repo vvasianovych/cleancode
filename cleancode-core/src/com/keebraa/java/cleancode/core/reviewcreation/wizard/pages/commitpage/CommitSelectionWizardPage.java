@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -37,10 +39,13 @@ public class CommitSelectionWizardPage extends WizardPage implements
     @Override
     public void createControl(Composite parent)
     {
+        Composite myParent = new Composite(parent, SWT.NONE);
+        GridLayout gl = new GridLayout();
+        myParent.setLayout(gl);
         setTitle(PAGE_TITLE);
         setDescription(PAGE_DESCRIPTION);
-        commitTable = createCommitTable(parent);
-        setControl(parent);
+        commitTable = createCommitTable(myParent);
+        setControl(myParent);
         setPageComplete(false);
     }
 

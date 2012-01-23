@@ -15,95 +15,95 @@ import com.keebraa.java.cleancode.core.model.Commit;
 
 public class CommitTableBuilder
 {
+    private final String FOREIGNCOLUMN_TITLE = "foreign number (ID)";
 
-   private final String FOREIGNCOLUMN_TITLE = "foreign number (ID)";
+    private final String COMMENT_TITLE = "comment";
 
-   private final String COMMENT_TITLE = "comment";
+    private Table commitTable;
 
-   private Table commitTable;
+    private CommitRepository repository;
 
-   private CommitRepository repository;
+    private WizardPage page;
 
-   private WizardPage page;
+    private SelectionListener listener;
 
-   private SelectionListener listener;
+    private IProject project;
 
-   private IProject project;
+    private Composite parent;
 
-   private Composite parent;
+    public CommitTableBuilder(CommitRepository repository, IProject project)
+    {
+        if (repository == null)
+        {
+            throw new CommitTableBuilderException(
+                    "CommitRepository can't be null");
+        }
+        this.project = project;
+        this.repository = repository;
+    }
 
-   public CommitTableBuilder(CommitRepository repository, IProject project)
-   {
-	if (repository == null)
-	{
-	   throw new CommitTableBuilderException("CommitRepository can't be null");
-	}
-	this.project = project;
-	this.repository = repository;
-   }
+    public void setParent(Composite parent)
+    {
+        this.parent = parent;
+    }
 
-   public void setParent(Composite parent)
-   {
-	this.parent = parent;
-   }
+    public void setCommitRepository(CommitRepository repository)
+    {
+        this.repository = repository;
+    }
 
-   public void setCommitRepository(CommitRepository repository)
-   {
-	this.repository = repository;
-   }
+    public void createSelectionListener()
+    {
+        this.listener = new CommitSelectionListener();
+    }
 
-   public void createSelectionListener()
-   {
-	this.listener = new CommitSelectionListener();
-   }
+    public void setPage(WizardPage page)
+    {
+        this.page = page;
+    }
 
-   public void setPage(WizardPage page)
-   {
-	this.page = page;
-   }
+    public Table build()
+    {
+        commitTable = new Table(parent, SWT.CHECK | SWT.BORDER | SWT.MULTI);
+        commitTable.setHeaderVisible(true);
+        createCheckBoxColumn();
+        createForeignNumberColumn();
+        createCommentColumn();
+        fillTable();
+        commitTable.addSelectionListener(listener);
+        commitTable.setData(page);
+        return commitTable;
+    }
 
-   public Table build()
-   {
-	commitTable = new Table(parent, SWT.CHECK | SWT.BORDER | SWT.MULTI);
-	commitTable.setHeaderVisible(true);
-	createCheckBoxColumn();
-	createForeignNumberColumn();
-	createCommentColumn();
-	fillTable();
-	commitTable.addSelectionListener(listener);
-	commitTable.setData(page);
-	return commitTable;
-   }
+    private void createCheckBoxColumn()
+    {
+        TableColumn column = new TableColumn(commitTable, SWT.NONE);
+        column.setText("");
+        column.setWidth(20);
+    }
 
-   private void createCheckBoxColumn()
-   {
-	TableColumn column = new TableColumn(commitTable, SWT.NONE);
-	column.setText("");
-	column.setWidth(20);
-   }
+    private void createForeignNumberColumn()
+    {
+        TableColumn column = new TableColumn(commitTable, SWT.NONE);
+        column.setText(FOREIGNCOLUMN_TITLE);
+        column.setWidth(200);
+    }
 
-   private void createForeignNumberColumn()
-   {
-	TableColumn column = new TableColumn(commitTable, SWT.NONE);
-	column.setText(FOREIGNCOLUMN_TITLE);
-	column.setWidth(200);
-   }
+    private void createCommentColumn()
+    {
+        TableColumn column = new TableColumn(commitTable, SWT.NONE);
+        column.setText(COMMENT_TITLE);
+        column.setWidth(300);
+    }
 
-   private void createCommentColumn()
-   {
-	TableColumn column = new TableColumn(commitTable, SWT.NONE);
-	column.setText(COMMENT_TITLE);
-	column.setWidth(300);
-   }
-
-   private void fillTable()
-   {
-	for (Commit commit : repository.getAllCommits(project))
-	{
-	   TableItem item = new TableItem(commitTable, SWT.NONE);
-	   item.setText(new String[]
-	   { "", commit.getForeignNumber(), commit.getDescription() });
-	   item.setData(commit);
-	}
-   }
+    private void fillTable()
+    {
+        for (Commit commit : repository.getAllCommits(project))
+        {
+            TableItem item = new TableItem(commitTable, SWT.NONE);
+            item.setText(new String[] { "", commit.getForeignNumber(),
+                    commit.getDescription() });
+            item.setData(commit);
+        }
+    }
 }
