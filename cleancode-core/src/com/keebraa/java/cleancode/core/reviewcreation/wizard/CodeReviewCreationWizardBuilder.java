@@ -54,9 +54,8 @@ public class CodeReviewCreationWizardBuilder
     public CodeReviewCreationWizard build()
     {
         CodeReviewCreationWizard wizard = createWizard();
-//        wizard.addPage(createCommitSelectionPage());
-        wizard.addPage(createReviewerSelectionPage());
         wizard.addPage(createCommitSelectionPage());
+        wizard.addPage(createReviewerSelectionPage());
         return wizard;
     }
 }
