@@ -1,5 +1,9 @@
 *.class
 **/*.class
+**/.classpath
+**/.project
+.classpath
+.project
 cleancode-core/**/*.class
 cleancode-core/bin
 mercurial-driver/bin
