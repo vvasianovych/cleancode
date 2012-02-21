@@ -15,47 +15,48 @@ import com.vectrace.MercurialEclipse.history.MercurialRevision;
 public class MercurialCommitRepository implements CommitRepository
 {
 
-   public MercurialCommitRepository()
-   {
-   }
+    public MercurialCommitRepository()
+    {
+    }
 
-   @Override
-   public boolean canHandle(RepositoryProvider provider)
-   {
-	return true;
-   }
+    @Override
+    public boolean canHandle(RepositoryProvider provider)
+    {
+        return true;
+    }
 
-   @Override
-   public List<Commit> getAllCommits(IProject project)
-   {
-	MercurialHistory history = getHistory(project);
-	CommitBuilder builder = new CommitBuilder();
-	List<Commit> commits = new ArrayList<Commit>(history.getRevisions().size());
-	for(MercurialRevision revision : history.getRevisions())
-	{
-	   Commit commit = builder.build(revision);
-	   commits.add(commit);
-	}
-	return commits;
-   }
+    @Override
+    public List<Commit> getAllCommits(IProject project)
+    {
+        MercurialHistory history = getHistory(project);
+        CommitBuilder builder = new CommitBuilder();
+        List<Commit> commits = new ArrayList<Commit>(history.getRevisions()
+                .size());
+        for (MercurialRevision revision : history.getRevisions())
+        {
+            Commit commit = builder.build(revision);
+            commits.add(commit);
+        }
+        return commits;
+    }
 
-   @Override
-   public String getRealizationName()
-   {
-	return "MERCURIAL REALIZATION";
-   }
+    @Override
+    public String getRealizationName()
+    {
+        return "MERCURIAL REALIZATION";
+    }
 
-   private MercurialHistory getHistory(IProject project)
-   {
-	MercurialHistory history = new MercurialHistory(project);
-	try
-	{
-	   history.refresh(null, Integer.MAX_VALUE);
-	}
-	catch (CoreException e)
-	{
-	   e.printStackTrace();
-	}
-	return history;
-   }
+    private MercurialHistory getHistory(IProject project)
+    {
+        MercurialHistory history = new MercurialHistory(project);
+        try
+        {
+            history.refresh(null, Integer.MAX_VALUE);
+        }
+        catch (CoreException e)
+        {
+            e.printStackTrace();
+        }
+        return history;
+    }
 }
