@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
@@ -45,6 +46,8 @@ public class CommitSelectionWizardPage extends WizardPage implements
         setTitle(PAGE_TITLE);
         setDescription(PAGE_DESCRIPTION);
         commitTable = createCommitTable(myParent);
+        GridData data = new GridData(GridData.FILL, GridData.FILL, true, true);
+        commitTable.setLayoutData(data);
         setControl(myParent);
         setPageComplete(false);
     }
@@ -61,14 +64,13 @@ public class CommitSelectionWizardPage extends WizardPage implements
             Commit commit = (Commit) item.getData();
             selectedCommits.add(commit);
         }
-
         return selectedCommits;
     }
 
     private Table createCommitTable(Composite parent)
     {
         commitTableBuilder.setParent(parent);
-        commitTableBuilder.setPage(this);
+        commitTableBuilder.setPage(this);        
         return commitTableBuilder.build();
     }
 

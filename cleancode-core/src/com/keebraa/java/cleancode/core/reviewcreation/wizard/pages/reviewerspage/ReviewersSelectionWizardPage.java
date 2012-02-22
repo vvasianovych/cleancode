@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
@@ -47,6 +48,8 @@ public class ReviewersSelectionWizardPage extends WizardPage implements
         tableBuilder.setParent(myParent);
         tableBuilder.setPage(this);
         reviewerTable = tableBuilder.build();
+        GridData data = new GridData(GridData.FILL, GridData.FILL, true, true);
+        reviewerTable.setLayoutData(data);
         setControl(myParent);
         setPageComplete(false);
     }

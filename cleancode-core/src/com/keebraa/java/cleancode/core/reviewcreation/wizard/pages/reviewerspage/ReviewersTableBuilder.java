@@ -49,8 +49,8 @@ public class ReviewersTableBuilder
     private void createCheckBoxColumn()
     {
          TableColumn column = new TableColumn(reviewersTable, SWT.NONE);
-         column.setText("");
-         column.setWidth(20);
+         column.setText("Reviewer");
+         column.setWidth(100);
     }
 
     private void fillTable()
@@ -65,42 +65,3 @@ public class ReviewersTableBuilder
          }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
