@@ -10,8 +10,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 
 import com.keebraa.java.cleancode.core.exceptions.CommitTableBuilderException;
-import com.keebraa.java.cleancode.core.extensionpoints.CommitRepository;
-import com.keebraa.java.cleancode.core.model.Commit;
+import com.keebraa.java.cleancode.core.extensionpoints.ComitRepository;
+import com.keebraa.java.cleancode.core.model.Comit;
 
 public class CommitTableBuilder
 {
@@ -21,7 +21,7 @@ public class CommitTableBuilder
 
     private Table commitTable;
 
-    private CommitRepository repository;
+    private ComitRepository repository;
 
     private WizardPage page;
 
@@ -31,7 +31,7 @@ public class CommitTableBuilder
 
     private Composite parent;
 
-    public CommitTableBuilder(CommitRepository repository, IProject project)
+    public CommitTableBuilder(ComitRepository repository, IProject project)
     {
         if (repository == null)
         {
@@ -47,7 +47,7 @@ public class CommitTableBuilder
         this.parent = parent;
     }
 
-    public void setCommitRepository(CommitRepository repository)
+    public void setCommitRepository(ComitRepository repository)
     {
         this.repository = repository;
     }
@@ -98,7 +98,7 @@ public class CommitTableBuilder
 
     private void fillTable()
     {
-        for (Commit commit : repository.getAllCommits(project))
+        for (Comit commit : repository.getAllCommits(project))
         {
             TableItem item = new TableItem(commitTable, SWT.NONE);
             item.setText(new String[] { "", commit.getForeignNumber(),

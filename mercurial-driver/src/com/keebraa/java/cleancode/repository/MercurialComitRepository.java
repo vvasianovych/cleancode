@@ -7,15 +7,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.team.core.RepositoryProvider;
 
-import com.keebraa.java.cleancode.core.extensionpoints.CommitRepository;
-import com.keebraa.java.cleancode.core.model.Commit;
+import com.keebraa.java.cleancode.core.extensionpoints.ComitRepository;
+import com.keebraa.java.cleancode.core.model.Comit;
 import com.vectrace.MercurialEclipse.history.MercurialHistory;
 import com.vectrace.MercurialEclipse.history.MercurialRevision;
 
-public class MercurialCommitRepository implements CommitRepository
+public class MercurialComitRepository implements ComitRepository
 {
 
-    public MercurialCommitRepository()
+    public MercurialComitRepository()
     {
     }
 
@@ -26,15 +26,15 @@ public class MercurialCommitRepository implements CommitRepository
     }
 
     @Override
-    public List<Commit> getAllCommits(IProject project)
+    public List<Comit> getAllCommits(IProject project)
     {
         MercurialHistory history = getHistory(project);
-        CommitBuilder builder = new CommitBuilder();
-        List<Commit> commits = new ArrayList<Commit>(history.getRevisions()
+        ComitBuilder builder = new ComitBuilder();
+        List<Comit> commits = new ArrayList<Comit>(history.getRevisions()
                 .size());
         for (MercurialRevision revision : history.getRevisions())
         {
-            Commit commit = builder.build(revision);
+            Comit commit = builder.build(revision);
             commits.add(commit);
         }
         return commits;
@@ -59,4 +59,10 @@ public class MercurialCommitRepository implements CommitRepository
         }
         return history;
     }
+
+   @Override
+   public Comit getBefore(Comit comit)
+   {
+	return null;
+   }
 }

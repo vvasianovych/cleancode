@@ -5,9 +5,9 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.team.core.RepositoryProvider;
 
-import com.keebraa.java.cleancode.core.model.Commit;
+import com.keebraa.java.cleancode.core.model.Comit;
 
-public interface CommitRepository
+public interface ComitRepository
 {
     /**
      * This method will be called during registration of your factory. If your
@@ -21,7 +21,14 @@ public interface CommitRepository
      */
     public boolean canHandle(RepositoryProvider provider);
 
-    public List<Commit> getAllCommits(IProject project);
+    public List<Comit> getAllCommits(IProject project);
     
     public String getRealizationName();
+    
+    /**
+     * May return the same Comit, if before is null.
+     * @param comit
+     * @return
+     */
+    public Comit getBefore(Comit comit);
 }

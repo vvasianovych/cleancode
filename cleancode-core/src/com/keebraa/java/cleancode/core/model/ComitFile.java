@@ -3,7 +3,7 @@ package com.keebraa.java.cleancode.core.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommitFile
+public class ComitFile
 {    
     private Status status;
     
@@ -11,17 +11,17 @@ public class CommitFile
     
     private List<Change> changes;
     
-    public CommitFile()
+    public ComitFile()
     {
         this(Status.NULL, new ArrayList<Change>());
     }
     
-    public CommitFile(Status status)
+    public ComitFile(Status status)
     {
         this(status, new ArrayList<Change>());
     }
     
-    public CommitFile(Status status, List<Change> changes)
+    public ComitFile(Status status, List<Change> changes)
     {
         this.status = status;
         this.changes = changes;

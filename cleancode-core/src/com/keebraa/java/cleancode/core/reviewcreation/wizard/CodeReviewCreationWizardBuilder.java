@@ -3,7 +3,7 @@ package com.keebraa.java.cleancode.core.reviewcreation.wizard;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.wizard.IWizardPage;
 
-import com.keebraa.java.cleancode.core.extensionpoints.CommitRepository;
+import com.keebraa.java.cleancode.core.extensionpoints.ComitRepository;
 import com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.commitpage.CommitSelectionWizardPageBuilder;
 import com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.commitpage.CommitTableBuilder;
 import com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.reviewerspage.ReviewersSelectionWizardPage;
@@ -19,10 +19,10 @@ public class CodeReviewCreationWizardBuilder
 {
     private IProject project;
 
-    private CommitRepository repository;
+    private ComitRepository repository;
 
     public CodeReviewCreationWizardBuilder(IProject project,
-            CommitRepository repository)
+            ComitRepository repository)
     {
         this.project = project;
         this.repository = repository;

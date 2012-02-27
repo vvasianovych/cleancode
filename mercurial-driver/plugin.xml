@@ -2,9 +2,9 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="com.keebraa.java.cleancode.core.commitRepository">
+         point="com.keebraa.java.cleancode.core.comitRepository">
       <commitRepository
-            repository="com.keebraa.java.cleancode.repository.MercurialCommitRepository">
+            repository="com.keebraa.java.cleancode.repository.MercurialComitRepository">
       </commitRepository>
    </extension>
 </plugin>

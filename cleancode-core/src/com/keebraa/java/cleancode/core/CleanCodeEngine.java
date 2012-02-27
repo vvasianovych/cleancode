@@ -6,8 +6,8 @@ import com.keebraa.java.cleancode.core.exceptionhandling.ExceptionHandlingTool;
 import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundException;
 import com.keebraa.java.cleancode.core.exceptions.CodeReviewCreationException;
 import com.keebraa.java.cleancode.core.exceptions.CodeReviewSavingException;
-import com.keebraa.java.cleancode.core.extensionpoints.CommitRepository;
-import com.keebraa.java.cleancode.core.extensionpoints.CommitRepositoryProvider;
+import com.keebraa.java.cleancode.core.extensionpoints.ComitRepository;
+import com.keebraa.java.cleancode.core.extensionpoints.ComitRepositoryProvider;
 import com.keebraa.java.cleancode.core.model.CodeReview;
 import com.keebraa.java.cleancode.core.reviewcreation.wizard.ReviewCreationController;
 import com.keebraa.java.cleancode.core.storage.CodeReviewStorage;
@@ -45,8 +45,7 @@ public class CleanCodeEngine
    private static CodeReview createCodeReviewForProject(IProject project) throws CommitRepositoryNotFoundException,
 	   CodeReviewCreationException
    {
-	CommitRepositoryProvider provider = new CommitRepositoryProvider();
-	CommitRepository commitRepository = provider.getCommitRepository();
+	ComitRepository commitRepository = ComitRepositoryProvider.getCommitRepository();
 	ReviewCreationController wizardController = new ReviewCreationController(project, commitRepository);
 	CodeReview review = wizardController.performReviewCreationWizard();
 	if (review == null)

@@ -3,8 +3,11 @@ package com.keebraa.java.cleancode.core.model.builders;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundException;
+import com.keebraa.java.cleancode.core.extensionpoints.ComitRepository;
+import com.keebraa.java.cleancode.core.extensionpoints.ComitRepositoryProvider;
 import com.keebraa.java.cleancode.core.model.CodeReview;
-import com.keebraa.java.cleancode.core.model.Commit;
+import com.keebraa.java.cleancode.core.model.Comit;
 import com.keebraa.java.cleancode.core.model.Reviewer;
 
 /**
@@ -16,17 +19,17 @@ import com.keebraa.java.cleancode.core.model.Reviewer;
  */
 public class CodeReviewBuilder
 {
-   private List<Commit> commits;
+   private List<Comit> comits;
    private List<Reviewer> reviewers;
    
-   public void addCommits(List<Commit> commits)
+   public void setComits(List<Comit> comits)
    {
-	getCommits().addAll(commits);
+	this.comits = comits; 
    }
    
-   public void addReviewes(List<Reviewer> reviewers)
+   public void setReviewes(List<Reviewer> reviewers)
    {
-	getReviewers().addAll(reviewers);
+	this.reviewers = reviewers;
    }
    
    public void addReviewer(Reviewer reviewer)
@@ -34,18 +37,18 @@ public class CodeReviewBuilder
 	getReviewers().add(reviewer);
    }
    
-   public void addCommit(Commit commit)
+   public void addComit(Comit comit)
    {
-	getCommits().add(commit);
+	getComits().add(comit);
    }
    
-   private List<Commit> getCommits()
+   private List<Comit> getComits()
    {
-	if(commits == null)
+	if(comits == null)
 	{
-	   commits = new ArrayList<Commit>();
+	   comits = new ArrayList<Comit>();
 	}
-	return commits;
+	return comits;
    }
    
    private List<Reviewer> getReviewers()
@@ -56,10 +59,26 @@ public class CodeReviewBuilder
 	}
 	return reviewers;
    }
-   
-   public CodeReview build()
+
+   private Comit calculateBasicState() throws CommitRepositoryNotFoundException
    {
-	CodeReview codeReview = new CodeReview();
+	Comit older = comits.get(0);
+	for(Comit comit : comits)
+	{
+	   if(older.getComittedAt().after(comit.getComittedAt()))
+	   {
+		older = comit;
+	   }
+	}
+	ComitRepository repository = ComitRepositoryProvider.getCommitRepository();
+	Comit result = repository.getBefore(older);
+	return result;
+   }
+   
+   public CodeReview build() throws CommitRepositoryNotFoundException
+   {
+	Comit basicState = calculateBasicState();
+	CodeReview codeReview = new CodeReview(getReviewers(), getComits(), basicState);
 	return codeReview;
    }
 }

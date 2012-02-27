@@ -1,5 +1,6 @@
 package com.keebraa.java.cleancode.core.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,9 +11,9 @@ import java.util.UUID;
  * @author taqi
  * 
  */
-public class Commit
+public class Comit
 {
-    private List<CommitFile> files;
+    private List<ComitFile> files;
     
     private String foreignNumber;
     
@@ -20,15 +21,21 @@ public class Commit
     
     private UUID id;
     
-    public Commit(List<CommitFile> files, String foreignNumber, String description)
+    private Date comittedAt;
+    
+    private int revision;
+    
+    public Comit(List<ComitFile> files, String foreignNumber, String description, Date comittedAt, int revision)
     {
         this.files = files;
         this.foreignNumber = foreignNumber;
         this.description = description;
         id = UUID.randomUUID();
+        this.comittedAt = comittedAt;
+        this.revision = revision;
     }
     
-    public List<CommitFile> getFiles()
+    public List<ComitFile> getFiles()
     {
         return files;
     }
@@ -46,6 +53,16 @@ public class Commit
     public String getDescription()
     {
 	return description;
+    }
+    
+    public Date getComittedAt()
+    {
+	 return comittedAt;
+    }
+    
+    public int getRevision()
+    {
+	 return revision;
     }
     
     @Override
@@ -69,7 +86,7 @@ public class Commit
         {
             return false;
         }
-        Commit other = (Commit) obj;
+        Comit other = (Comit) obj;
         if (id == null)
         {
             if (other.id != null)

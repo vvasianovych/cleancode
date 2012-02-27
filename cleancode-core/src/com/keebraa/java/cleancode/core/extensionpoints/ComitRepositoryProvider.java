@@ -11,15 +11,15 @@ import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundExcept
  * @author taqi
  * 
  */
-public class CommitRepositoryProvider
+public class ComitRepositoryProvider
 {
-    private static final String COMMITREPOSITORY_POINTNAME = "com.keebraa.java.cleancode.core.commitRepository";
+    private static final String COMMITREPOSITORY_POINTNAME = "com.keebraa.java.cleancode.core.comitRepository";
     private static final String REPOSITORY_ATTRIBUTE = "repository";
 
-    public CommitRepository getCommitRepository() throws CommitRepositoryNotFoundException
+    public static ComitRepository getCommitRepository() throws CommitRepositoryNotFoundException
     {
-	CommitRepository factory = ExtensionPointsUtil.getUniqueExtensionPointRealization(COMMITREPOSITORY_POINTNAME,
-		REPOSITORY_ATTRIBUTE, CommitRepository.class);
+	ComitRepository factory = ExtensionPointsUtil.getUniqueExtensionPointRealization(COMMITREPOSITORY_POINTNAME,
+		REPOSITORY_ATTRIBUTE, ComitRepository.class);
 	return factory;
     }
 }

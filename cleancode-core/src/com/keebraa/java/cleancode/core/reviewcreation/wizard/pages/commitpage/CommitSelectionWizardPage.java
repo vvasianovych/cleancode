@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 
-import com.keebraa.java.cleancode.core.model.Commit;
+import com.keebraa.java.cleancode.core.model.Comit;
 import com.keebraa.java.cleancode.core.model.builders.CodeReviewBuilder;
 import com.keebraa.java.cleancode.core.reviewcreation.wizard.pages.CodeReviewCreationWizardPage;
 
@@ -28,13 +28,13 @@ public class CommitSelectionWizardPage extends WizardPage implements
 
     private CommitTableBuilder commitTableBuilder;
 
-    private List<Commit> selectedCommits;
+    private List<Comit> selectedCommits;
 
     public CommitSelectionWizardPage(CommitTableBuilder commitTableBuilder)
     {
         super(PAGENAME);
         this.commitTableBuilder = commitTableBuilder;
-        selectedCommits = new ArrayList<Commit>();
+        selectedCommits = new ArrayList<Comit>();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CommitSelectionWizardPage extends WizardPage implements
         setPageComplete(false);
     }
 
-    public List<Commit> getSelectedCommits()
+    public List<Comit> getSelectedCommits()
     {
         selectedCommits.clear();
         for (TableItem item : commitTable.getItems())
@@ -61,7 +61,7 @@ public class CommitSelectionWizardPage extends WizardPage implements
             {
                 continue;
             }
-            Commit commit = (Commit) item.getData();
+            Comit commit = (Comit) item.getData();
             selectedCommits.add(commit);
         }
         return selectedCommits;
@@ -73,10 +73,19 @@ public class CommitSelectionWizardPage extends WizardPage implements
         commitTableBuilder.setPage(this);        
         return commitTableBuilder.build();
     }
+    
+    private Comit recognizeYoungerCommit(List<Comit> commits)
+    {
+	 Comit result = null;
+	 for(Comit commit : commits)
+	 {
+	 }
+	 return result;
+    }
 
     @Override
     public void fillCodeReviewBuilder(CodeReviewBuilder builder)
     {
-        builder.addCommits(selectedCommits);
+        builder.setComits(selectedCommits);
     }
 }

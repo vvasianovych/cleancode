@@ -57,7 +57,7 @@ public class ReviewersSelectionWizardPage extends WizardPage implements
     @Override
     public void fillCodeReviewBuilder(CodeReviewBuilder builder)
     {
-        builder.addReviewes(selectedReviewers);
+        builder.setReviewes(selectedReviewers);
     }
 
     public List<Reviewer> getSelectedReviewers()
