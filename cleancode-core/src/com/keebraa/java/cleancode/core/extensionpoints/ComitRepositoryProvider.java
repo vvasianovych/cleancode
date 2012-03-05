@@ -1,7 +1,9 @@
 package com.keebraa.java.cleancode.core.extensionpoints;
 
+import org.eclipse.core.resources.IProject;
+
 import com.keebraa.java.cleancode.core.actions.CreateReviewAction;
-import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundException;
+import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryFactoryNotFoundException;
 
 /**
  * This class provides realizations of commitRepositories from
@@ -13,13 +15,14 @@ import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundExcept
  */
 public class ComitRepositoryProvider
 {
-    private static final String COMMITREPOSITORY_POINTNAME = "com.keebraa.java.cleancode.core.comitRepository";
-    private static final String REPOSITORY_ATTRIBUTE = "repository";
+    private static final String COMMITREPOSITORY_POINTNAME = "com.keebraa.java.cleancode.core.comitRepositoryFactory";
+    private static final String REPOSITORY_ATTRIBUTE = "factory";
 
-    public static ComitRepository getCommitRepository() throws CommitRepositoryNotFoundException
+    public static ComitRepository getCommitRepository(IProject project) throws CommitRepositoryFactoryNotFoundException
     {
-	ComitRepository factory = ExtensionPointsUtil.getUniqueExtensionPointRealization(COMMITREPOSITORY_POINTNAME,
-		REPOSITORY_ATTRIBUTE, ComitRepository.class);
-	return factory;
+	ComitRepositoryFactory factory = ExtensionPointsUtil.getUniqueExtensionPointRealization(COMMITREPOSITORY_POINTNAME,
+		REPOSITORY_ATTRIBUTE, ComitRepositoryFactory.class);
+	ComitRepository repository = factory.createRepository(project);
+	return repository;
     }
 }

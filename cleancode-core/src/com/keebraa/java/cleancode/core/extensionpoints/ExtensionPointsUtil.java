@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 
-import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundException;
+import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryFactoryNotFoundException;
 
 /**
  * This class provides some methods for work with extension points. Just for
@@ -27,19 +27,19 @@ public class ExtensionPointsUtil
      * @param realizationType
      *            - type of the realization. May be interface.
      * @return
-     * @throws CommitRepositoryNotFoundException
+     * @throws CommitRepositoryFactoryNotFoundException
      *             if there is no realization, or some problems (will contain
      *             sub-exception inside)
      */
     @SuppressWarnings("unchecked")
     public static <T> T getUniqueExtensionPointRealization(String pointName, String executableExtensionAttribute,
-	    Class<T> realizationType) throws CommitRepositoryNotFoundException
+	    Class<T> realizationType) throws CommitRepositoryFactoryNotFoundException
     {
 	T result = null;
 	IConfigurationElement[] configElements = Platform.getExtensionRegistry().getConfigurationElementsFor(pointName);
 	if (configElements.length < 1)
 	{
-	    throw new CommitRepositoryNotFoundException();
+	    throw new CommitRepositoryFactoryNotFoundException();
 	}
 	IConfigurationElement element = configElements[0];
 	try
@@ -49,7 +49,7 @@ public class ExtensionPointsUtil
 	}
 	catch (CoreException e)
 	{
-	    throw new CommitRepositoryNotFoundException(e);
+	    throw new CommitRepositoryFactoryNotFoundException(e);
 	}
 	return result;
     }

@@ -3,7 +3,9 @@ package com.keebraa.java.cleancode.core.model.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundException;
+import org.eclipse.core.resources.IProject;
+
+import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryFactoryNotFoundException;
 import com.keebraa.java.cleancode.core.extensionpoints.ComitRepository;
 import com.keebraa.java.cleancode.core.extensionpoints.ComitRepositoryProvider;
 import com.keebraa.java.cleancode.core.model.CodeReview;
@@ -21,6 +23,7 @@ public class CodeReviewBuilder
 {
    private List<Comit> comits;
    private List<Reviewer> reviewers;
+   private IProject project;
    
    public void setComits(List<Comit> comits)
    {
@@ -35,6 +38,11 @@ public class CodeReviewBuilder
    public void addReviewer(Reviewer reviewer)
    {
 	getReviewers().add(reviewer);
+   }
+   
+   public void setProject(IProject project)
+   {
+	this.project = project;
    }
    
    public void addComit(Comit comit)
@@ -60,7 +68,7 @@ public class CodeReviewBuilder
 	return reviewers;
    }
 
-   private Comit calculateBasicState() throws CommitRepositoryNotFoundException
+   private Comit calculateBasicState() throws CommitRepositoryFactoryNotFoundException
    {
 	Comit older = comits.get(0);
 	for(Comit comit : comits)
@@ -70,12 +78,12 @@ public class CodeReviewBuilder
 		older = comit;
 	   }
 	}
-	ComitRepository repository = ComitRepositoryProvider.getCommitRepository();
+	ComitRepository repository = ComitRepositoryProvider.getCommitRepository(project);
 	Comit result = repository.getBefore(older);
 	return result;
    }
    
-   public CodeReview build() throws CommitRepositoryNotFoundException
+   public CodeReview build() throws CommitRepositoryFactoryNotFoundException
    {
 	Comit basicState = calculateBasicState();
 	CodeReview codeReview = new CodeReview(getReviewers(), getComits(), basicState);

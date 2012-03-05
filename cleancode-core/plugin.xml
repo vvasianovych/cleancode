@@ -2,9 +2,9 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point 
-   		id="com.keebraa.java.cleancode.core.comitRepository" 
-   		name="comitRepository" 
-   		schema="schema/comitRepository.exsd">
+   		id="com.keebraa.java.cleancode.core.comitRepositoryFactory" 
+   		name="comitRepositoryFactory" 
+   		schema="schema/comitRepositoryFactory.exsd">
    	</extension-point>
 <!--
    <extension point="org.eclipse.core.expressions.propertyTesters">

@@ -6,7 +6,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundException;
+import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryFactoryNotFoundException;
 import com.keebraa.java.cleancode.core.extensionpoints.ComitRepository;
 import com.keebraa.java.cleancode.core.model.CodeReview;
 import com.keebraa.java.cleancode.core.model.builders.CodeReviewBuilder;
@@ -36,9 +36,9 @@ public class ReviewCreationController
     * until you finish your wizard.
     * 
     * @return
-    * @throws CommitRepositoryNotFoundException 
+    * @throws CommitRepositoryFactoryNotFoundException 
     */
-   public CodeReview performReviewCreationWizard() throws CommitRepositoryNotFoundException
+   public CodeReview performReviewCreationWizard() throws CommitRepositoryFactoryNotFoundException
    {
 	CodeReviewCreationWizardBuilder wizardBuilder = new CodeReviewCreationWizardBuilder(project, factory);
 	CodeReviewCreationWizard wizard = wizardBuilder.build();
@@ -46,6 +46,7 @@ public class ReviewCreationController
 	WizardDialog dialog = new WizardDialog(currShell, wizard);
 	dialog.open();
 	CodeReviewBuilder codeReviewBuilder = new CodeReviewBuilder();
+	codeReviewBuilder.setProject(project);
 	for(IWizardPage page : wizard.getPages())
 	{
 	   CodeReviewCreationWizardPage wizardPage = (CodeReviewCreationWizardPage) page;

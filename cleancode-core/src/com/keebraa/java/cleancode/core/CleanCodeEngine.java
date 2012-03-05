@@ -3,7 +3,7 @@ package com.keebraa.java.cleancode.core;
 import org.eclipse.core.resources.IProject;
 
 import com.keebraa.java.cleancode.core.exceptionhandling.ExceptionHandlingTool;
-import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryNotFoundException;
+import com.keebraa.java.cleancode.core.exceptions.CommitRepositoryFactoryNotFoundException;
 import com.keebraa.java.cleancode.core.exceptions.CodeReviewCreationException;
 import com.keebraa.java.cleancode.core.exceptions.CodeReviewSavingException;
 import com.keebraa.java.cleancode.core.extensionpoints.ComitRepository;
@@ -42,10 +42,10 @@ public class CleanCodeEngine
 	}
    }
 
-   private static CodeReview createCodeReviewForProject(IProject project) throws CommitRepositoryNotFoundException,
+   private static CodeReview createCodeReviewForProject(IProject project) throws CommitRepositoryFactoryNotFoundException,
 	   CodeReviewCreationException
    {
-	ComitRepository commitRepository = ComitRepositoryProvider.getCommitRepository();
+	ComitRepository commitRepository = ComitRepositoryProvider.getCommitRepository(project);
 	ReviewCreationController wizardController = new ReviewCreationController(project, commitRepository);
 	CodeReview review = wizardController.performReviewCreationWizard();
 	if (review == null)

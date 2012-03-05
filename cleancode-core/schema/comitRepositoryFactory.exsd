@@ -3,7 +3,7 @@
 <schema targetNamespace="com.keebraa.java.cleancode.core" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="com.keebraa.java.cleancode.core" id="com.keebraa.java.cleanconde.core.codeReviewFactory" name="codeReviewFactory"/>
+         <meta.schema plugin="com.keebraa.java.cleancode.core" id="com.keebraa.java.cleanconde.core.comitRepositoryFactory" name="comitRepositoryFactory"/>
       </appinfo>
       <documentation>
          This extension point is for creation ChangeSets (Commits) for codeReview. Note that Commits (ChangeSets) is the entity from this plugin - not from your Version Control System realization. See com.keebraa.java.cleancode.model
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <choice>
-            <element ref="commitRepository"/>
+            <element ref="comitRepositoryFactory"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,20 +47,20 @@
       </complexType>
    </element>
 
-   <element name="commitRepository">
+   <element name="comitRepositoryFactory">
       <annotation>
          <documentation>
             extend this point to provide changeSets for the cleanCode codeReview action. See CommitRepository interface
          </documentation>
       </annotation>
       <complexType>
-         <attribute name="repository" type="string">
+         <attribute name="factory" type="string">
             <annotation>
                <documentation>
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":com.keebraa.java.cleancode.core.extensionpoints.CommitRepository"/>
+                  <meta.attribute kind="java" basedOn=":com.keebraa.java.cleancode.core.extensionpoints.ComitRepositoryFactory"/>
                </appinfo>
             </annotation>
          </attribute>

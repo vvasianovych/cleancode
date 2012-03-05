@@ -98,7 +98,7 @@ public class CommitTableBuilder
 
     private void fillTable()
     {
-        for (Comit commit : repository.getAllCommits(project))
+        for (Comit commit : repository.getAllCommits())
         {
             TableItem item = new TableItem(commitTable, SWT.NONE);
             item.setText(new String[] { "", commit.getForeignNumber(),
