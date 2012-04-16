@@ -3,7 +3,6 @@ package com.keebraa.java.cleancode.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.team.core.RepositoryProvider;
 
@@ -14,14 +13,14 @@ import com.vectrace.MercurialEclipse.history.MercurialRevision;
 
 public class MercurialComitRepository implements ComitRepository
 {
-   private IProject project;
-   
    private MercurialHistoryBuilder historyBuilder;
+   
+   private ComitBuilder comitBuilder;
 
-   public MercurialComitRepository(IProject project, MercurialHistoryBuilder historyBuilder)
+   public MercurialComitRepository(MercurialHistoryBuilder historyBuilder)
    {
-	this.project = project;
 	this.historyBuilder = historyBuilder;
+	this.comitBuilder = new ComitBuilder();
    }
 
    @Override
@@ -33,12 +32,11 @@ public class MercurialComitRepository implements ComitRepository
    @Override
    public List<Comit> getAllCommits()
    {
-	MercurialHistory history = getHistory(project, Integer.MAX_VALUE);
-	ComitBuilder builder = new ComitBuilder();
+	MercurialHistory history = getHistory(Integer.MAX_VALUE);
 	List<Comit> commits = new ArrayList<Comit>(history.getRevisions().size());
 	for (MercurialRevision revision : history.getRevisions())
 	{
-	   Comit commit = builder.build(revision);
+	   Comit commit = comitBuilder.build(revision);
 	   commits.add(commit);
 	}
 	return commits;
@@ -50,9 +48,9 @@ public class MercurialComitRepository implements ComitRepository
 	return "MERCURIAL REALIZATION";
    }
 
-   private MercurialHistory getHistory(IProject project, int from)
+   private MercurialHistory getHistory(int from)
    {
-	MercurialHistory history = new MercurialHistory(project);
+	MercurialHistory history = historyBuilder.build();
 	try
 	{
 	   history.refresh(null, from);
@@ -64,14 +62,21 @@ public class MercurialComitRepository implements ComitRepository
 	return history;
    }
 
+   //TODO: refactor this ugly code. Avoid such decrements, and so on... 
    @Override
    public Comit getBefore(Comit comit)
    {
+	Comit result = null;
 	int revisionNumber = comit.getRevision();
-	MercurialHistory history = getHistory(project, revisionNumber);
-	for (MercurialRevision revision : history.getRevisions())
+	MercurialHistory history = getHistory(revisionNumber);
+	List<MercurialRevision> revisions = history.getRevisions(); 
+	if(revisions.size() > 0 && revisions.contains(comit))
 	{
+	   int index = revisions.indexOf(comit);
+	   index--;
+	   MercurialRevision revision = revisions.get(index);
+	   result = comitBuilder.build(revision);
 	}
-	return null;
+	return result;
    }
 }

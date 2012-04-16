@@ -25,7 +25,7 @@ public interface ComitRepository
     public String getRealizationName();
     
     /**
-     * May return the same Comit, if before is null.
+     * May return null, if current Comit is the first.
      * @param comit
      * @return
      */

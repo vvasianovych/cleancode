@@ -11,7 +11,8 @@ public class MercurialComitRepositoryFactory implements ComitRepositoryFactory
    public ComitRepository createRepository(IProject project)
    {
 	MercurialHistoryBuilder builder = new MercurialHistoryBuilder();
-	ComitRepository repository = new MercurialComitRepository(project, builder);
+	builder.setProject(project);
+	ComitRepository repository = new MercurialComitRepository(builder);
 	return repository;
    }
 }

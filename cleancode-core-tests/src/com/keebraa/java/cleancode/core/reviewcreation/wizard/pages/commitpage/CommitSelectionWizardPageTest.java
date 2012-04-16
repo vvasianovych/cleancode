@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.keebraa.java.cleancode.core.model.Commit;
+import com.keebraa.java.cleancode.core.model.Comit;
 
 public class CommitSelectionWizardPageTest
 {
